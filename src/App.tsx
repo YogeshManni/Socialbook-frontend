@@ -1,25 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { getUser } from "./helpers/helper";
+import { Route, Routes } from "react-router-dom";
+import Login from "./components/Login/Login";
 
 function App() {
+  const [type, setType] = useState("signIn");
+
+  const handleOnClick = (text: any) => {
+    if (text !== type) {
+      setType(text);
+      return;
+    }
+  };
+
+  const containerClass =
+    "appContainer " + (type === "signUp" ? "right-panel-active" : "");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {!getUser() && (
+        <div className="h-[100vh]">
+          <div className={containerClass} id="container">
+            <Routes>
+              {/*  {type == "signIn" ? ( */}
+              <Route
+                path="/"
+                element={<Login changeType={handleOnClick}></Login>}
+              ></Route>
+            </Routes>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
