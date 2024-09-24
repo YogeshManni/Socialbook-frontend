@@ -6,6 +6,14 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 
+export const LogoComponent = () => {
+  return (
+    <div className="h-[20px] auto m-5 flex items-center justify-center">
+      <img src={logo} className="h-10" alt="logo"></img>
+    </div>
+  );
+};
+
 function App() {
   const [type, setType] = useState("signIn");
 
