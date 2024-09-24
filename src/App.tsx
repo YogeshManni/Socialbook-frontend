@@ -4,6 +4,7 @@ import "./App.css";
 import { getUser } from "./helpers/helper";
 import { Route, Routes } from "react-router-dom";
 import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
 
 function App() {
   const [type, setType] = useState("signIn");
@@ -24,11 +25,16 @@ function App() {
         <div className="h-[100vh]">
           <div className={containerClass} id="container">
             <Routes>
-              {/*  {type == "signIn" ? ( */}
               <Route
                 path="/"
                 element={<Login changeType={handleOnClick}></Login>}
               ></Route>
+
+              <Route
+                path="/register"
+                element={<Register changeType={handleOnClick}></Register>}
+              ></Route>
+              {/*  )} */}
             </Routes>
           </div>
         </div>
