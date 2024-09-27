@@ -13,3 +13,9 @@ export const addUsersInDb = async (data: any) => {
     return res.data;
   });
 };
+
+export const addPost = async (obj: any) => {
+  return await axios.post(`${baseURL}/posts/addPost`, obj).then((res) => {
+    return res.data;
+  });
+};
