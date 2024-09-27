@@ -123,6 +123,80 @@ const CreatePost = () => {
     );
   };
 
+  {
+    /* Second step to Enter details about post */
+  }
+
+  const PostDetails = () => {
+    const [caption, setCaption] = useState("");
+    const [showEmoji, setShowEmoji] = useState(false);
+    const updateCaption = (e: any) => {
+      let _caption = caption;
+
+      // if its an emoji add native value
+      if (e.native) {
+        _caption += e.native;
+      } else {
+        _caption = e.target.value;
+      }
+
+      // assign outer finalCaption
+      finalCaption.current = _caption;
+      console.log(finalCaption.current);
+      setCaption(_caption);
+    };
+
+    return (
+      <div className="detailsData">
+        <Row className="">
+          <Col md={24} lg={12}>
+            {postType === "image" ? (
+              <Image
+                src={u_img}
+                alt="uploadImage"
+                className="h-[50vh] max-h-[450px]"
+              />
+            ) : (
+              <video className="h-[50vh]" controls>
+                <source src={u_img} type="video/mp4" />
+              </video>
+            )}
+          </Col>
+          <Col md={24} lg={12} className="flex flex-col px-10 w-full">
+            <div className="flex  w-full space-x-5 mt-[20px]">
+              <Avatar
+                size="large"
+                src={
+                  getUser().img.includes("https://")
+                    ? getUser().img
+                    : `https://xsgames.co/randomusers/avatar.php?g=pixel&key=1`
+                }
+              />
+              <b className="mt-2">
+                <span>{user.username}</span>
+              </b>
+            </div>
+            <TextArea
+              className="mt-5 mb-5 w-full"
+              showCount
+              value={caption}
+              maxLength={500}
+              onChange={(e) => updateCaption(e)}
+              placeholder="Write a caption for post"
+              style={{ height: 320 }}
+              onFocus={() => setShowEmoji(false)}
+            />
+            <SmileOutlined
+              className="text-[20px] mb-3"
+              onClick={() => setShowEmoji(!showEmoji)}
+            />
+            {showEmoji && <Emoji handleComment={updateCaption} />}
+          </Col>
+        </Row>
+      </div>
+    );
+  };
+
   const steps = [
     {
       title: "First",
