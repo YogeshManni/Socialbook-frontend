@@ -39,3 +39,35 @@ export const addCommentTodb = async (data: any) => {
       return res.data;
     });
 };
+
+export const addEventToDb = async (data: any) => {
+  console.log(data);
+  return await axios.post(`${baseURL}/event/addEvent`, data).then((res) => {
+    return res;
+  });
+};
+
+export const updateEventInDb = async (data: any) => {
+  return await axios.post(`${baseURL}/event/updateEvent`, data).then((res) => {
+    return res;
+  });
+};
+
+export const getEventFromDb = async () => {
+  console.log(`${baseURL}/event/`);
+  return await axios.get(`${baseURL}/event/`).then((res) => {
+    return res.data;
+  });
+};
+
+export const updateEventLikesInDb = async (data: any) => {
+  return await axios.post(`${baseURL}/event/updateLikes`, data).then((res) => {
+    return res.data;
+  });
+};
+
+export const updateEventViews = async (data: any) => {
+  return await axios.post(`${baseURL}/event/updateViews`, data).then((res) => {
+    return res.data;
+  });
+};
