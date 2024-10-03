@@ -71,3 +71,11 @@ export const updateEventViews = async (data: any) => {
     return res.data;
   });
 };
+
+export const getCommentFromdb = async (id: any, type: any) => {
+  let res = null;
+  if (type == "event")
+    res = await axios.get(`${baseURL}/event/getEventComments/${id}/${type}`);
+  else res = await axios.get(`${baseURL}/event/getComments/${id}/${type}`);
+  return res.data;
+};
