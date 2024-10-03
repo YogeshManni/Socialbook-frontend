@@ -1,0 +1,17 @@
+.viewEventContainer {
+  overflow-y: scroll;
+  border: 0.5px solid rgb(207, 207, 207);
+  padding: 20px;
+}
+
+@media only screen and (max-width: 1215px) {
+  .ql-container.ql-snow {
+    height: calc(100% - 4%);
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .ql-container.ql-snow {
+    height: calc(100% - 6%);
+  }
+}
