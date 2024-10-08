@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Avatar, Button, Divider, Input, List, Skeleton, Space } from "antd";
 
-import "./Comments.css";
 import { SendOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { addCommentTodb, getCommentFromdb } from "../../../services/api";

@@ -82,7 +82,7 @@ function Login(props: any) {
           </Form.Item>
           <Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
+              <Checkbox>Remember me ..</Checkbox>
             </Form.Item>
           </Form.Item>
 
@@ -100,7 +100,7 @@ function Login(props: any) {
 
           <Form.Item className="flex items-center justify-center  lg:hidden">
             <p>
-              Don't have an account?
+              Don't have an account ?
               <Link to="/register" className="text-sbutton">
                 {" "}
                 <span
