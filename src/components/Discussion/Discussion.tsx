@@ -18,7 +18,7 @@ import {
   getDiscussionCommToDb,
 } from "../../services/api";
 import { getUser } from "../../helpers/helper";
-import { userInfo } from "os";
+
 import Moderate from "../../lib/mod";
 function Discussion() {
   const [isModalOpen, setIsModalOpen] = useState(false);
