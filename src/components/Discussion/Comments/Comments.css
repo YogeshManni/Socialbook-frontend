@@ -1,0 +1,32 @@
+.metaList .ant-list-item-meta-content .ant-list-item-meta-description {
+  margin-top: 20px !important;
+}
+
+.metaList .ant-list-item-meta-content .ant-list-item-meta-title {
+  margin-top: 15px !important;
+  margin-bottom: 8px !important;
+}
+.commentDateTime {
+  font-size: 10px;
+  color: rgb(126, 126, 126);
+}
+
+.commentBox {
+  margin-top: 10px;
+}
+.metaList .ant-list-item-meta-description {
+  color: rgb(139, 139, 139) !important;
+  display: inline;
+  font-size: 13px !important;
+  width: auto !important;
+  margin-top: 5px !important;
+}
+
+.metaList .ant-list-item-meta-content {
+  margin-top: -5px !important;
+  width: 100% !important;
+}
+
+.listItem {
+  display: flex;
+}

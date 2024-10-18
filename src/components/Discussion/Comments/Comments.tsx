@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Avatar, Button, Divider, Input, List, Skeleton, Space } from "antd";
-
+import InfiniteScroll from "react-infinite-scroll-component";
+import "./Comments.css";
 import { SendOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { addCommentTodb, getCommentFromdb } from "../../../services/api";
@@ -26,35 +27,6 @@ function Comments(props: any) {
   const [data, setData] = useState<any>([]);
   const [comment, setComment] = useState("");
 
-  const loadMoreData = () => {
-    if (loading) {
-      return;
-    }
-    let fakeData = [
-      {
-        img: "/data/img1",
-        username: "bob",
-        comment: "What a wonderful story",
-        date: "25/07/2023",
-      },
-    ];
-    setData([...data, ...fakeData]);
-    setLoading(false);
-    /*   if (loading) {
-        return;
-      }
-      setLoading(true);
-      fetch('https://randomuser.me/api/?results=10&inc=name,gender,email,nat,picture&noinfo')
-        .then((res) => res.json())
-        .then((body) => {
-          setData([...data, ...body.results]);
-          setLoading(false);
-        })
-        .catch(() => {
-          setLoading(false);
-        }); */
-  };
-
   useEffect(() => {
     const _getComments = async () => {
       const res = await getCommentFromdb(props._discussionId, props.type);
@@ -72,10 +44,11 @@ function Comments(props: any) {
       comment: comment,
       date: moment().format("LLL"),
       type: props.type,
+      img: getUser().img,
     };
 
     const res = await addCommentTodb(newComment);
-    setData([...data, res]);
+    setData([newComment, ...data]);
     setComment("");
   };
 
@@ -100,8 +73,9 @@ function Comments(props: any) {
                   avatar={
                     <Avatar
                       src={
-                        item.img ||
-                        `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${props._discussionid}`
+                        item?.img?.includes("https://")
+                          ? item.img
+                          : `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${props._discussionid}`
                       }
                     />
                   }
@@ -128,9 +102,9 @@ function Comments(props: any) {
         />
         <Button
           onClick={() => addComment()}
-          className="border-none text-[18px]   bg-[#60a5fa]"
+          className="border-none text-[18px]   bg-sbutton text-dullwhite"
         >
-          <span className="mt-[-20px]">
+          <span className="">
             <SendOutlined />
           </span>
         </Button>
