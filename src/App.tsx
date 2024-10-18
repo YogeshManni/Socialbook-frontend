@@ -86,6 +86,7 @@ export const LogoComponent = () => {
 const App: React.FC = () => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const [location, setLocation] = useState<string>("/home");
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -110,7 +111,12 @@ const App: React.FC = () => {
   };
 
   //get current route
-  const location = useLocation().pathname;
+  console.log(useLocation().pathname, location);
+  const currLoc = useLocation().pathname;
+  if (location !== currLoc) {
+    console.log("hit");
+    setLocation(currLoc);
+  }
 
   const containerClass =
     "appContainer " + (type === "signUp" ? "right-panel-active" : "");
@@ -120,18 +126,18 @@ const App: React.FC = () => {
         <div className="h-[100vh]">
           <div className={containerClass} id="container">
             <Routes>
+              {/*  {type == "signIn" ? ( */}
               <Route
                 path="/"
                 element={<Login changeType={handleOnClick}></Login>}
               ></Route>
-
+              {/*      ) : ( */}
               <Route
                 path="/register"
                 element={<Register changeType={handleOnClick}></Register>}
               ></Route>
               {/*  )} */}
             </Routes>
-
             <div className="overlay-container hidden lg:block">
               <div className="overlay">
                 <div className="overlay-panel overlay-left">
@@ -193,7 +199,7 @@ const App: React.FC = () => {
             <Menu
               onClick={menuClick}
               theme="dark"
-              defaultSelectedKeys={[MenuKeys[location] || "0"]}
+              selectedKeys={[MenuKeys[location] || "0"]}
               mode="inline"
               items={items}
             />
