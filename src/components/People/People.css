@@ -1,0 +1,32 @@
+.peopleCards {
+  width: 250px;
+  height: 320px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.peopleCards .ant-card-body {
+  padding: 15px 15px 0px 15px !important;
+}
+
+/* .peopleContainer p {
+  line-height: 18px !important;
+} */
+
+.peopleContainer hr {
+  border: 1px solid rgb(231, 229, 229);
+  line-height: 10px !important;
+}
+
+.cardData p {
+  font-size: 12px;
+}
+
+@media only screen and (max-width: 900px) {
+  .peopleModal {
+    width: 80vw !important;
+  }
+}
+
+.peopleContainer button {
+  background-color: #8b5cf6 !important;
+}
