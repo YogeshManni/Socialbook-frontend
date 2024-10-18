@@ -30,12 +30,12 @@ const Moderate = async (text) => {
         }
         console.log(moderationData);
         const notValid =
-          moderationData.sexual >= 0.5 ||
-          moderationData.discriminatory >= 0.5 ||
-          moderationData.insulting >= 0.5 ||
-          moderationData.violent >= 0.5 ||
-          moderationData.toxic >= 0.5 ||
-          moderationData["self-harm"] >= 0.5;
+          moderationData.sexual >= 0.2 ||
+          moderationData.discriminatory >= 0.2 ||
+          moderationData.insulting >= 0.2 ||
+          moderationData.violent >= 0.2 ||
+          moderationData.toxic >= 0.2 ||
+          moderationData["self-harm"] >= 0.2;
 
         console.log("Moderation validation result:", notValid);
         return notValid; // Return the moderation result

@@ -34,8 +34,6 @@ const upload = async (file, filename) => {
         }
       },
       (error) => {
-        // A full list of error codes is available at
-        // https://firebase.google.com/docs/storage/web/handle-errors
         reject(`Some error occured + ${error.code}`);
         /* switch (error.code) {
             case "storage/unauthorized":
