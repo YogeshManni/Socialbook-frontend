@@ -109,7 +109,8 @@ const AddEvent = forwardRef(({ getAddEvent, newPost, postData }: any, ref) => {
           ref={editorContentRef}
           style={{ height: editorHeight - 50 }}
           value={content}
-          modules={modules}
+          /*  Show toolbar to owner of event only, hide in other cases  */
+          modules={isUpdate() ? modules : { toolbar: false }}
           readOnly={
             postData === null || getUser().username === postData.username
               ? false
@@ -117,14 +118,6 @@ const AddEvent = forwardRef(({ getAddEvent, newPost, postData }: any, ref) => {
           }
         />
       </div>
-      {/*  ) : (
-          <div
-            className="viewEventContainer"
-            ref={editorRef}
-            style={{ height: editorHeight - 50 }}
-            dangerouslySetInnerHTML={{ __html: editorContentRef.current.value }}
-          ></div>
-         )} */}
 
       {modelState && (
         <Modal
