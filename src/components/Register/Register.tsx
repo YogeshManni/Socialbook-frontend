@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import {
   LockOutlined,
   MailOutlined,
@@ -18,12 +19,15 @@ import {
   message,
 } from "antd";
 import { LogoComponent } from "../../App";
-import { Link } from "react-router-dom";
-import { addUsersInDb } from "../../services/api";
+import { Link, useNavigate } from "react-router-dom";
+import { addUsersInDb, sendOtpToUser, verifyOtp } from "../../services/api";
 import moment from "moment";
 import upload from "../../lib/upload";
+import { verify } from "crypto";
 
 export default function Register(props: any) {
+  const navigate = useNavigate();
+
   const formItemLayout = {
     labelCol: {
       xs: { span: 24 },
@@ -36,6 +40,26 @@ export default function Register(props: any) {
   };
 
   const [fileList, setFileList] = useState([]);
+
+  const setOtp = async (e: any) => {
+    const otp = e.target.value;
+    if (otp.length === 6) {
+      const res = await verifyOtp({ email, otp });
+      if (res.status === "success") {
+        setEmailVerified(true);
+        message.success({
+          content: "Email verified successfully !!",
+          duration: 5,
+        });
+      } else {
+        setEmailVerified(false);
+        message.error({
+          content: res.msg,
+          duration: 5,
+        });
+      }
+    }
+  };
 
   const handleChange = (props: any) => {
     console.log(props);
@@ -59,9 +83,12 @@ export default function Register(props: any) {
   const [previewTitle, setPreviewTitle] = useState("");
   const [u_img, setImage]: any = useState("");
   const [dateTime, setDateTime]: any = useState("");
-  const [imgName, setImgName] = useState("");
+
   const [username, setUsername] = useState("");
   const [isuploading, setUploading] = useState<boolean>(false);
+  const [emailValidated, setEmailValidated] = useState<boolean>(false);
+  const [emailVerified, setEmailVerified] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
   const handleCancel = () => setPreviewOpen(false);
 
   const onRegister = async (data: any) => {
@@ -69,18 +96,39 @@ export default function Register(props: any) {
 
     const res = await addUsersInDb(data);
 
-    if (res.status == "success") {
+    if (res.status === "success") {
+      props.changeType("signIn");
+      navigate("/");
       message.success("Account created successfully, please login now !");
     } else {
-      message.error("Error occured while account creation, please try again!");
+      message.error(
+        res.message || "Error occured while account creation, please try again!"
+      );
     }
   };
 
+  const sendOtp = async (email: string) => {
+    // if email not already verified, send otp to user
+    if (!emailVerified) {
+      setEmail(email);
+
+      const res = await sendOtpToUser(email);
+      if (res.status === "success") {
+        message.success({
+          content:
+            "An email with OTP is sent to your email address, please enter that OTP below !!",
+          duration: 10,
+        });
+      } else {
+        message.error({
+          content: res.msg,
+          duration: 5,
+        });
+      }
+      console.log(res);
+    }
+  };
   function setImageData(file: any, url: string) {
-    console.log(file);
-    console.log(dateTime);
-    console.log(url);
-    setImgName(`${username}${dateTime}${file.name}`);
     setImage(url);
     setUploading(false);
   }
@@ -90,6 +138,7 @@ export default function Register(props: any) {
     multiple: false,
     listType: "picture-circle",
 
+    action: ``,
     async beforeUpload(file) {
       if (!file.type.includes("image")) {
         message.error("Please upload an image only");
@@ -102,6 +151,13 @@ export default function Register(props: any) {
       const newFileName = `${_username}${dateTime}${file.name}`;
       setUploading(true);
       const imageUrl = await upload(file, newFileName);
+      if (imageUrl.includes("https://firebase")) {
+        message.success("Image uploaded succesfully !!");
+      } else {
+        message.error(
+          "Error occured while uploading image, please try again !!"
+        );
+      }
       handleChange(file);
 
       //uploadImage(file);
@@ -116,7 +172,7 @@ export default function Register(props: any) {
   }, []);
 
   return (
-    <div className="flex flex-col lg:w-[50%] h-full p-10 justify-center  lg:ml-[50%] w-[100vw]">
+    <div className="flex flex-col lg:w-[50%] h-full p-10  lg:ml-[50%] w-[100vw]">
       <div className="shadow-2xl shadow-[#8b5cf6]/60 p-10 rounded-[15px]">
         <LogoComponent />
         <Form
@@ -169,12 +225,32 @@ export default function Register(props: any) {
             rules={[
               {
                 type: "email",
-                message: "The input is not valid E-mail!",
+                message: "The input is not a valid E-mail !!",
               },
               {
                 required: true,
-                message: "Please input your E-mail!",
+                message: "Please input your E-mail !!",
               },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  //  if (getFieldValue("email").type === "email") {
+                  if (
+                    !value ||
+                    getFieldValue("email").includes("@northislandcollege.ca")
+                  ) {
+                    setEmailValidated(true);
+
+                    sendOtp(getFieldValue("email"));
+                    return Promise.resolve();
+                  }
+
+                  setEmailValidated(false);
+                  return Promise.reject(
+                    new Error("Please enter your college E-mail !!")
+                  );
+                  //  }
+                },
+              }),
             ]}
             hasFeedback
           >
@@ -182,6 +258,25 @@ export default function Register(props: any) {
               size="large"
               prefix={<MailOutlined className="site-form-item-icon" />}
               placeholder="Email"
+            />
+          </Form.Item>
+
+          <Form.Item
+            hidden={!emailValidated}
+            name="otp"
+            label="OTP"
+            rules={[
+              {
+                required: true,
+                message: "Please input otp you received in your email !!",
+              },
+            ]}
+          >
+            <Input
+              size="large"
+              prefix={<MailOutlined className="site-form-item-icon" />}
+              placeholder="Otp"
+              onChange={(e) => setOtp(e)}
             />
           </Form.Item>
 
@@ -199,7 +294,7 @@ export default function Register(props: any) {
             <Input.Password
               size="large"
               prefix={<LockOutlined className="site-form-item-icon" />}
-              placeholder="password"
+              placeholder="Password"
             />
           </Form.Item>
 
@@ -272,7 +367,7 @@ export default function Register(props: any) {
               delay={500}
             >
               <Upload {...uploadprops}>
-                {fileList.length == 1 ? null : uploadButton}
+                {fileList.length < 1 && "+ Upload"}
               </Upload>
             </Spin>
             <Modal
