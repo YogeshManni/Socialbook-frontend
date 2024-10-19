@@ -2,7 +2,6 @@ import axios from "axios";
 
 const baseURL = process.env.REACT_APP_BASEURL;
 
-axios.defaults.withCredentials = true;
 export const addEventToDb = async (data: any) => {
   console.log(data);
   return await axios.post(`${baseURL}/event/addEvent`, data).then((res) => {
@@ -132,6 +131,20 @@ export const saveUserDataDb = async (data: any) => {
     .then((res) => {
       return res.data;
     });
+};
+
+export const sendOtpToUser = async (email: string) => {
+  return await axios
+    .post(`${baseURL}/verify/send-otp`, { email })
+    .then((res) => {
+      return res.data;
+    });
+};
+
+export const verifyOtp = async (data: any) => {
+  return await axios.post(`${baseURL}/verify/verify-otp`, data).then((res) => {
+    return res.data;
+  });
 };
 
 export const logoutUser = async (data: any) => {
