@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Discussion.css";
 import Icon, {
+  ArrowLeftOutlined,
   LikeOutlined,
   MessageOutlined,
   PlusOutlined,
@@ -30,7 +31,7 @@ function Discussion() {
   const [modelState, setModalState] = useState(false);
   const [discussionName, setDiscussionName] = useState<string>("");
   const [dissNameNotFound, setDissNameNotFound] = useState<boolean>(false);
-
+  const [disCmtSelected, selectDissComments] = useState<boolean>(false);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -129,6 +130,7 @@ function Discussion() {
     const data = await getDiscussionCommToDb(id);
 
     setDissData(data.data);
+    selectDissComments(true);
   };
 
   return (
@@ -147,9 +149,27 @@ function Discussion() {
         </span>
       </Button>
 
+      <Button
+        className={`md:hidden visible bg-sbutton mb-2`}
+        onClick={() => {
+          selectDissComments(false);
+        }}
+        size={"large"}
+        style={{ float: "right" }}
+      >
+        <span className="!text-dullwhite font-bold">
+          <ArrowLeftOutlined />
+          &nbsp; Back
+        </span>
+      </Button>
+
       {/********** Discussions *********/}
       <div className="listDiv flex boxShadow">
-        <div className="!w-[30vw] border-r-[0.5px] border-[#9ca3af] overflow-y-auto cursor-pointer">
+        <div
+          className={`border-r-[0.5px] border-[#9ca3af] overflow-y-auto cursor-pointer ${
+            !disCmtSelected ? "w-[100vw] md:w-[30vw]" : "w-0 md:w-[30vw]"
+          }`}
+        >
           <List
             itemLayout="vertical"
             size="large"
@@ -186,7 +206,11 @@ function Discussion() {
         </div>
 
         {/**** Discussion comments ********/}
-        <div className="!w-[70vw] ">
+        <div
+          className={`${
+            disCmtSelected ? "w-[100vw] md:w-[70vw]" : "w-[0vw] md:w-[70vw]"
+          } `}
+        >
           <div className="!h-[73vh] overflow-y-auto">
             <div className="ml-4  overflow-y-auto">
               <List
