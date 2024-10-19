@@ -1,12 +1,13 @@
+import React, { useState } from "react";
+
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, message } from "antd";
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { LogoComponent } from "../../App";
-import { setUser } from "../../helpers/helper";
+import { Link, useNavigate } from "react-router-dom";
 import { loginFromDb } from "../../services/api";
+import { setAuthHeader, setUser } from "../../helpers/helper";
 
-function Login(props: any) {
+export default function Login(props: any) {
   const navigate = useNavigate();
   const [login, setLogin] = useState(false);
   const [usernameFound, setUsernameFound] = useState(true);
@@ -15,7 +16,7 @@ function Login(props: any) {
   const onLogin = async (data: any) => {
     setLogin(true);
     const res = await loginFromDb(data);
-    if (res.status == "not_found") {
+    if (res.status === "not_found") {
       setUsernameFound(false);
       message.error(
         "User does not exist, plese check username again or create a new acount !!"
@@ -26,9 +27,12 @@ function Login(props: any) {
     } else if (res.status == "internal_error") {
       message.error("Some unknown error occured, please try again!!");
     } else if (res.status == "success") {
-      setUser(res.data);
+      setUser(res);
       message.success("Login succeed, getting you to homepage !");
-      navigate("/posts");
+      setAuthHeader();
+      setTimeout(() => {
+        navigate("/posts");
+      }, 500);
     }
     setLogin(false);
   };
@@ -82,7 +86,7 @@ function Login(props: any) {
           </Form.Item>
           <Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me ..</Checkbox>
+              <Checkbox>Remember me</Checkbox>
             </Form.Item>
           </Form.Item>
 
@@ -100,7 +104,7 @@ function Login(props: any) {
 
           <Form.Item className="flex items-center justify-center  lg:hidden">
             <p>
-              Don't have an account ?
+              Don't have an account?
               <Link to="/register" className="text-sbutton">
                 {" "}
                 <span
@@ -118,5 +122,3 @@ function Login(props: any) {
     </div>
   );
 }
-
-export default Login;
