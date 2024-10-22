@@ -23,7 +23,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { addUsersInDb, sendOtpToUser, verifyOtp } from "../../services/api";
 import moment from "moment";
 import upload from "../../lib/upload";
-import { verify } from "crypto";
 
 export default function Register(props: any) {
   const navigate = useNavigate();
