@@ -21,15 +21,16 @@ export default function Login(props: any) {
       message.error(
         "User does not exist, plese check username again or create a new acount !!"
       );
-    } else if (res.status == "incorrect") {
+    } else if (res.status === "incorrect") {
       setPasswordStatus(false);
       message.error("Password Incorrect, please try again !!");
-    } else if (res.status == "internal_error") {
+    } else if (res.status === "internal_error") {
       message.error("Some unknown error occured, please try again!!");
-    } else if (res.status == "success") {
+    } else if (res.status === "success") {
       setUser(res);
       message.success("Login succeed, getting you to homepage !");
       setAuthHeader();
+      setLogin(false);
       setTimeout(() => {
         navigate("/posts");
       }, 500);
