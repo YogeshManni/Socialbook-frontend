@@ -8,7 +8,7 @@ import Icon, {
   SendOutlined,
   StarOutlined,
 } from "@ant-design/icons";
-import { Avatar, Form, Input, List, message, Space } from "antd";
+import { Avatar, Form, Input, List, message, Skeleton, Space } from "antd";
 import { Button, Modal } from "antd";
 import Comments from "./Comments/Comments";
 import moment from "moment";
@@ -32,6 +32,8 @@ function Discussion() {
   const [discussionName, setDiscussionName] = useState<string>("");
   const [dissNameNotFound, setDissNameNotFound] = useState<boolean>(false);
   const [disCmtSelected, selectDissComments] = useState<boolean>(false);
+  const [disLoader, setDisLoader] = useState<boolean>(false);
+  const [disCommLoader, setDisCommLoader] = useState<boolean>(false);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -120,17 +122,21 @@ function Discussion() {
       const data = await getDiscussionsFromDb();
 
       setDiscussion(data);
+      setDisLoader(false);
     }
+    setDisLoader(true);
     _getDisccussions();
   }, []);
 
   const getDissComments = async (id: number) => {
+    setDisCommLoader(true);
     setDiscussionId(id);
 
     const data = await getDiscussionCommToDb(id);
 
     setDissData(data.data);
     selectDissComments(true);
+    setDisCommLoader(false);
   };
 
   return (
@@ -170,39 +176,45 @@ function Discussion() {
             !disCmtSelected ? "w-[100vw] md:w-[30vw]" : "w-0 md:w-[30vw]"
           }`}
         >
-          <List
-            itemLayout="vertical"
-            size="large"
-            dataSource={newDiscussion}
-            renderItem={(item: any, idx: number) => (
-              <List.Item
-                key={`${item.name}${idx}`}
-                className={`hover:bg-[rgba(94,94,94,0.2)] ${
-                  item.id === discussionId
-                    ? "bg-[rgba(94,94,94,0.2)]"
-                    : "bg-[rgba(223,223,223,0.2)]"
-                } `}
-                onClick={() => getDissComments(item.id)}
-              >
-                <List.Item.Meta
-                  avatar={
-                    <Avatar
-                      src={
-                        item?.img?.includes("https://")
-                          ? item.img
-                          : `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${item.id}`
-                      }
-                    />
-                  }
-                  title={<span className="text-[14px]">{item.username}</span>}
-                  description={
-                    <p className="text-[13px]">{moment(item.date).fromNow()}</p>
-                  }
-                />
-                <p className="ml-10 mt-[-10px]">{item.name}</p>
-              </List.Item>
-            )}
-          />
+          {disLoader ? (
+            <Skeleton />
+          ) : (
+            <List
+              itemLayout="vertical"
+              size="large"
+              dataSource={newDiscussion}
+              renderItem={(item: any, idx: number) => (
+                <List.Item
+                  key={`${item.name}${idx}`}
+                  className={`hover:bg-[rgba(94,94,94,0.2)] ${
+                    item.id === discussionId
+                      ? "bg-[rgba(94,94,94,0.2)]"
+                      : "bg-[rgba(223,223,223,0.2)]"
+                  } `}
+                  onClick={() => getDissComments(item.id)}
+                >
+                  <List.Item.Meta
+                    avatar={
+                      <Avatar
+                        src={
+                          item?.img?.includes("https://")
+                            ? item.img
+                            : `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${item.id}`
+                        }
+                      />
+                    }
+                    title={<span className="text-[14px]">{item.username}</span>}
+                    description={
+                      <p className="text-[13px]">
+                        {moment(item.date).fromNow()}
+                      </p>
+                    }
+                  />
+                  <p className="ml-10 mt-[-10px]">{item.name}</p>
+                </List.Item>
+              )}
+            />
+          )}
         </div>
 
         {/**** Discussion comments ********/}
@@ -213,52 +225,56 @@ function Discussion() {
         >
           <div className="!h-[73vh] overflow-y-auto">
             <div className="ml-4  overflow-y-auto">
-              <List
-                itemLayout="vertical"
-                size="large"
-                dataSource={dissData}
-                renderItem={(item: any, idx: number) => (
-                  <List.Item
-                    key={`${item.name}${idx}`}
-                    actions={[
-                      <Button onClick={() => handleLikes(item)}>
-                        <IconText
-                          icon={LikeOutlined}
-                          text={String(item.likes)}
-                          key="list-vertical-like-o"
-                        />
-                      </Button>,
-                      <Button
-                        onClick={() => {
-                          showModal();
-                          setDiscussionCommId(item.id);
-                        }}
-                      >
-                        <IconText
-                          icon={MessageOutlined}
-                          text=""
-                          key="list-vertical-message"
-                        />
-                      </Button>,
-                    ]}
-                  >
-                    <List.Item.Meta
-                      avatar={
-                        <Avatar
-                          src={
-                            item?.img?.includes("https://")
-                              ? item.img
-                              : `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${item.id}`
-                          }
-                        />
-                      }
-                      title={item.name}
-                      description={moment(item.date).fromNow()}
-                    />
-                    {item.discussion}
-                  </List.Item>
-                )}
-              />
+              {disCommLoader ? (
+                <Skeleton />
+              ) : (
+                <List
+                  itemLayout="vertical"
+                  size="large"
+                  dataSource={dissData}
+                  renderItem={(item: any, idx: number) => (
+                    <List.Item
+                      key={`${item.name}${idx}`}
+                      actions={[
+                        <Button onClick={() => handleLikes(item)}>
+                          <IconText
+                            icon={LikeOutlined}
+                            text={String(item.likes)}
+                            key="list-vertical-like-o"
+                          />
+                        </Button>,
+                        <Button
+                          onClick={() => {
+                            showModal();
+                            setDiscussionCommId(item.id);
+                          }}
+                        >
+                          <IconText
+                            icon={MessageOutlined}
+                            text=""
+                            key="list-vertical-message"
+                          />
+                        </Button>,
+                      ]}
+                    >
+                      <List.Item.Meta
+                        avatar={
+                          <Avatar
+                            src={
+                              item?.img?.includes("https://")
+                                ? item.img
+                                : `https://xsgames.co/randomusers/avatar.php?g=pixel&key=${item.id}`
+                            }
+                          />
+                        }
+                        title={item.name}
+                        description={moment(item.date).fromNow()}
+                      />
+                      {item.discussion}
+                    </List.Item>
+                  )}
+                />
+              )}
             </div>
           </div>
           <Space.Compact style={{ width: "100%" }} className="commentBox">
