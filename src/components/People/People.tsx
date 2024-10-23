@@ -1,10 +1,11 @@
-import { Avatar, Card, Col, Modal, Row } from "antd";
+import { Avatar, Card, Col, Modal, Row, Select } from "antd";
 import Meta from "antd/es/card/Meta";
 import React, { useEffect, useState } from "react";
 import "./People.css";
 import { getUsersFromDb } from "../../services/api";
 import Profile from "../Profile/Profile";
 import Search from "antd/es/input/Search";
+import { filterUserData } from "./filter";
 function People() {
   // searched users
   const [users, setUsers]: any = useState([]);
@@ -14,6 +15,8 @@ function People() {
   const [currentUser, setCurrentUserState]: any = useState(null);
   const [isSearching, setSearching] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
+  const [filter, setFilter] = useState<string>("Name");
+
   const _getUsers = async () => {
     const res = await getUsersFromDb();
     console.log(res);
@@ -25,22 +28,29 @@ function People() {
     _getUsers();
   }, []);
 
+  const { Option } = Select;
+  const selectBefore = (
+    <Select
+      defaultValue="name"
+      className="w-[150px]"
+      onChange={(e) => setFilter(e)}
+    >
+      <Option value="Name">Name</Option>
+      <Option value="Role">Role</Option>
+      <Option value="Organization">Organization</Option>
+    </Select>
+  );
+
   const filterUsers = (e: any) => {
     setSearching(true);
+
     const query = e.target.value;
 
     // if serach is over display all the users
     if (query.length === 0) {
       setUsers(dbUsers);
     } else {
-      // use map to filter out the matching users, also filter out undefined
-      const filteredUsers = dbUsers
-        .map((user: any) => {
-          if (user.username.toLowerCase().includes(query)) return user;
-        })
-        .filter((user: any) => user);
-
-      console.log(filteredUsers);
+      const filteredUsers = filterUserData(dbUsers, query, filter);
       setUsers(filteredUsers);
     }
     setQuery(query);
@@ -50,6 +60,7 @@ function People() {
   return (
     <div className="peopleContainer">
       <Search
+        addonBefore={selectBefore}
         placeholder="Search students/faculty"
         enterButton="Search"
         onChange={filterUsers}
