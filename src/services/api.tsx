@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const baseURL = process.env.REACT_APP_BASEURL;
-axios;
 
 export const addEventToDb = async (data: any) => {
   console.log(data);
