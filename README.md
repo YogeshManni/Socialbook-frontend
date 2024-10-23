@@ -36,6 +36,13 @@ In summary, this app addresses the key issues of fragmented communication, offer
 
 ## Developer Document
 
+For project configuration and dependencies, please read developer documentation [here](https://github.com/YogeshManni/Socialbook-frontend/blob/main/Developer%20Documentation.md)
+
+## User Document
+
+For Project Navigation and user flow, please see User Documentation
+[here](https://github.com/YogeshManni/Socialbook-frontend/blob/main/Developer%20Documentation.md)
+
 ## Key Performance Indicators (KPIs)
 
 1. **Daily Active Users (DAU)**

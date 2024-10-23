@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   AppstoreAddOutlined,
   DesktopOutlined,
@@ -9,7 +9,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Breadcrumb, Button, Layout, Menu, theme } from "antd";
+import { Breadcrumb, Button, Layout, Menu, theme, Tour } from "antd";
 import Events from "./components/Events/Events";
 import {
   BrowserRouter as Router,
@@ -84,7 +84,11 @@ export const LogoComponent = () => {
 };
 
 const App: React.FC = () => {
+  const [open, setOpen] = useState(false);
+
   const navigate = useNavigate();
+  // Steps for the tour, targeting each sibling component
+
   const [collapsed, setCollapsed] = useState(false);
   const [location, setLocation] = useState<string>("/home");
   const {
