@@ -228,7 +228,9 @@ const App: React.FC = () => {
                     element={
                       <div className="flex justify-around">
                         <Posts />
-                        <SuggestedPeople />
+                        <div className="xl:block hidden">
+                          <SuggestedPeople />
+                        </div>
                       </div>
                     }
                   ></Route>

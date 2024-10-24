@@ -120,7 +120,7 @@ export default function Register(props: any) {
         });
       } else {
         message.error({
-          content: res.msg,
+          content: res.msg || res,
           duration: 5,
         });
       }
@@ -170,11 +170,14 @@ export default function Register(props: any) {
     if (!dateTime) setDateTime(String(moment().format()));
   }, []);
 
+  const [form] = Form.useForm();
+
   return (
     <div className="flex flex-col lg:w-[50%] h-full p-10  lg:ml-[50%] w-[100vw]">
       <div className="shadow-2xl shadow-[#8b5cf6]/60 p-10 rounded-[15px]">
         <LogoComponent />
         <Form
+          form={form}
           name="normal_login"
           className="login-form mt-10 xl:pr-20"
           initialValues={{ remember: true }}
@@ -232,31 +235,42 @@ export default function Register(props: any) {
               },
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  //  if (getFieldValue("email").type === "email") {
-                  if (
-                    !value ||
-                    getFieldValue("email").includes("@northislandcollege.ca")
-                  ) {
+                  const email = getFieldValue("email");
+
+                  // Regular expression for basic email validation
+                  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                  // Validate email format
+                  if (emailRegex.test(email)) {
                     setEmailValidated(true);
 
-                    sendOtp(getFieldValue("email"));
+                    // Call sendOtp after email is validated
+                    // sendOtp(email);
                     return Promise.resolve();
                   }
 
                   setEmailValidated(false);
-                  return Promise.reject(
-                    new Error("Please enter your college E-mail !!")
-                  );
-                  //  }
+                  return Promise.reject(new Error("Invalid email format"));
                 },
               }),
             ]}
             hasFeedback
           >
             <Input
+              onBlur={() => {
+                const email = form.getFieldValue("email");
+                console.log(email);
+                if (emailValidated) {
+                  setEmailValidated(true);
+                  sendOtp(email); // Send OTP only after email validation on blur
+                } else {
+                  setEmailValidated(false);
+                }
+              }}
               size="large"
               prefix={<MailOutlined className="site-form-item-icon" />}
               placeholder="Email"
+              name="email"
             />
           </Form.Item>
 
