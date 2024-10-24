@@ -3,15 +3,30 @@ on:
   push:
     branches:
       - main
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+
+    env:
+      REACT_APP_BASEURL: ${{ secrets.REACT_APP_BASEURL }}
+      REACT_APP_FIREBASE_APIKEY: ${{ secrets.REACT_APP_FIREBASE_APIKEY }}
+      REACT_APP_FIREBASE_AUTHDOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTHDOMAIN }}
+      REACT_APP_FIREBASE_PROJECTID: ${{ secrets.REACT_APP_FIREBASE_PROJECTID }}
+      REACT_APP_FIREBASE_STORAGEBUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGEBUCKET }}
+      REACT_APP_FIREBASE_MSGSNDID: ${{ secrets.REACT_APP_FIREBASE_MSGSNDID }}
+      REACT_APP_FIREBASE_APPID: ${{ secrets.REACT_APP_FIREBASE_APPID }}
+      REACT_APP_MODERATIONURL: ${{ secrets.REACT_APP_MODERATIONURL }}
+      REACT_APP_API_USER: ${{ secrets.REACT_APP_API_USER }}
+      REACT_APP_API_SECRET: ${{ secrets.REACT_APP_API_SECRET }}
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2.3.2
       - name: Install Dependencies
         run: npm install
+
       - name: Build
         env:
           CI: false
