@@ -22,6 +22,7 @@ import Comments from "../Discussion/Comments/Comments";
 import moment from "moment";
 import { Image } from "antd";
 import { getUser } from "../../helpers/helper";
+import SuggestedPeople from "../People/SuggestedPeople";
 
 const Posts = () => {
   const [posts, setPosts]: any = useState();

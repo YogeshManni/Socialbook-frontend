@@ -29,6 +29,7 @@ import Login from "./components/Login/Login";
 import { getUser, logout, setAuthHeader } from "./helpers/helper";
 import Register from "./components/Register/Register";
 import CreatePost from "./components/createpost/CreatePost";
+import SuggestedPeople from "./components/People/SuggestedPeople";
 const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -222,7 +223,16 @@ const App: React.FC = () => {
                 }}
               >
                 <Routes>
-                  <Route path="/posts" element={<Posts></Posts>}></Route>
+                  <Route
+                    path="/posts"
+                    element={
+                      <div className="flex justify-around">
+                        <Posts />
+                        <SuggestedPeople />
+                      </div>
+                    }
+                  ></Route>
+
                   <Route path="/events" element={<Events></Events>}></Route>
                   <Route path="/discussions" element={<Discussion />}></Route>
                   <Route path="/create" element={<CreatePost />}></Route>
