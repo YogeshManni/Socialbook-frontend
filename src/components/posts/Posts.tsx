@@ -142,8 +142,12 @@ const Posts = () => {
                 </div>
               ) : (
                 <div className="h-auto">
-                  <video controls className="h-auto w-full ">
+                  <video
+                    controls
+                    className="h-[420px] w-full  object-cover max-h-auto"
+                  >
                     <source src={post.img} type="video/mp4" />
+                    Your browser does not support the video tag.
                   </video>
                 </div>
               )}

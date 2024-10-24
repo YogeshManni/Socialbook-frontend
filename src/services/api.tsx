@@ -176,8 +176,8 @@ export const logoutUser = async (data: any) => {
 };
 
 // this will return top 5 users related to role of logged in user
-export const getPeopleFromDb = async (role: string) => {
-  return await axios.get(`${baseURL}/users/role/${role}`).then((res) => {
+export const getPeopleFromDb = async (role: string, id: Number) => {
+  return await axios.get(`${baseURL}/users/role/${role}/${id}`).then((res) => {
     return res.data;
   });
 };

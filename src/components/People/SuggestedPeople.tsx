@@ -3,8 +3,10 @@ import { getUser } from "../../helpers/helper";
 import { getPeopleFromDb } from "../../services/api";
 import { Avatar, List, Modal, Skeleton } from "antd";
 import Profile from "../Profile/Profile";
+import { Link } from "react-router-dom";
 
 interface User {
+  id: Number;
   username: string;
   email: string;
   role: string;
@@ -21,7 +23,8 @@ function SuggestedPeople() {
   useEffect(() => {
     const _getSuggPeople = async () => {
       try {
-        const res = await getPeopleFromDb(getUser().role);
+        const user = getUser();
+        const res = await getPeopleFromDb(user.role, user.id);
         console.log(res);
         setUsers(res.data);
       } catch (err) {
@@ -33,10 +36,15 @@ function SuggestedPeople() {
 
   return (
     <section className="flex flex-col">
-      <span className="text-[15px] font-bold text-[#9ca3af]  pb-3">
-        {" "}
-        Suggested for you
-      </span>
+      <div className="flex justify-between w-full">
+        <span className="text-[15px] font-bold text-[#9ca3af]  pb-3">
+          {" "}
+          Suggested for you
+        </span>
+        <Link to="/people">
+          <span className="text-[#9ca3af] cursor-pointer">See all </span>
+        </Link>
+      </div>
       <hr className="pb-3 !border-[#9ca3af]" />
       <List
         className="w-[500px]"
