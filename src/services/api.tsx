@@ -2,6 +2,28 @@ import axios from "axios";
 
 const baseURL = process.env.REACT_APP_BASEURL;
 
+// Add a request interceptor
+axios.interceptors.request.use(
+  (config) => {
+    // Check if the 'Authorization' header exists
+    if (!config.headers["Authorization"]) {
+      // Handle missing 'Authorization' header
+      console.warn("Authorization header missing!");
+
+      const token = sessionStorage.getItem("token");
+
+      config.headers["Authorization"] = `Bearer ${
+        token ? JSON.parse(token) : null
+      }`;
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 export const addEventToDb = async (data: any) => {
   console.log(data);
   return await axios.post(`${baseURL}/event/addEvent`, data).then((res) => {

@@ -89,11 +89,6 @@ const App: React.FC = () => {
   const navigate = useNavigate();
   // Steps for the tour, targeting each sibling component
 
-  useEffect(() => {
-    //set Auth header in case someone reload the browser tab
-    setAuthHeader();
-  }, []);
-
   const [collapsed, setCollapsed] = useState(false);
   const [location, setLocation] = useState<string>("/home");
   const {
