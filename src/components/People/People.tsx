@@ -18,11 +18,15 @@ function People() {
   const [filter, setFilter] = useState<string>("Name");
 
   const _getUsers = async () => {
-    const res = await getUsersFromDb();
-    console.log(res);
-    setUsers([...res]);
-    setDbUsers([...res]);
-    setQuery("");
+    try {
+      const res = await getUsersFromDb();
+      console.log(res);
+      setUsers([...res]);
+      setDbUsers([...res]);
+      setQuery("");
+    } catch (err) {
+      console.log(err);
+    }
   };
   useEffect(() => {
     _getUsers();
@@ -31,8 +35,8 @@ function People() {
   const { Option } = Select;
   const selectBefore = (
     <Select
-      defaultValue="name"
-      className="w-[150px]"
+      defaultValue="Name"
+      className="w-[115px] md:w-[140px] "
       onChange={(e) => setFilter(e)}
     >
       <Option value="Name">Name</Option>
@@ -80,7 +84,13 @@ function People() {
                 }}
                 hoverable
                 className="peopleCards"
-                cover={<img className="h-[250px]" alt="user" src={item.img} />}
+                cover={
+                  <img
+                    className="h-[250px] object-cover"
+                    alt="user"
+                    src={item.img}
+                  />
+                }
               >
                 <b>
                   <p>{item.username}</p>

@@ -43,6 +43,10 @@ const AddEvent = forwardRef(({ getAddEvent, newPost, postData }: any, ref) => {
     return postData !== null && postData.username === getUser().username;
   };
 
+  const isNewOrUpdate = () => {
+    return !postData || isUpdate();
+  };
+
   const validateEventName = async () => {
     //validate if input is not empty or just spaces
 
@@ -76,7 +80,8 @@ const AddEvent = forwardRef(({ getAddEvent, newPost, postData }: any, ref) => {
   // react hook to call a method in child component from parent one
   useImperativeHandle(ref, () => ({
     addEvent() {
-      setModalState(true);
+      // show modal only if same user is updating or its a new event
+      isNewOrUpdate() ? setModalState(true) : getAddEvent(null);
       // set react quill's content again (Somehow its losing the data, possibility is because of re-render)
       setContent(editorContentRef.current.value);
     },
@@ -110,7 +115,7 @@ const AddEvent = forwardRef(({ getAddEvent, newPost, postData }: any, ref) => {
           style={{ height: editorHeight - 50 }}
           value={content}
           /*  Show toolbar to owner of event only, hide in other cases  */
-          modules={isUpdate() ? modules : { toolbar: false }}
+          modules={isNewOrUpdate() ? modules : { toolbar: false }}
           readOnly={
             postData === null || getUser().username === postData.username
               ? false

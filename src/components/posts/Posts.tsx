@@ -132,6 +132,7 @@ const Posts = () => {
                 <div className="relative  aspect-square overflow-hidden z-20">
                   {/* If the image src doesn't contaain https:// i.e if its not from firebase or null then show notFoundImg */}
                   <Image
+                    className="object-cover"
                     src={
                       post?.img.includes("https://") ? post.img : notFoundImage
                     }

@@ -106,7 +106,7 @@ const Events = () => {
                     }}
                     cover={
                       <img
-                        className="h-[200px] !"
+                        className="h-[200px] object-cover"
                         alt="example"
                         src={item.img !== "null" ? item.img : eventImg}
                       />

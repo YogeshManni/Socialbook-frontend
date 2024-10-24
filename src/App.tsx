@@ -26,7 +26,7 @@ import People from "./components/People/People";
 
 import "./App.css";
 import Login from "./components/Login/Login";
-import { getUser, logout } from "./helpers/helper";
+import { getUser, logout, setAuthHeader } from "./helpers/helper";
 import Register from "./components/Register/Register";
 import CreatePost from "./components/createpost/CreatePost";
 const { Header, Content, Footer, Sider } = Layout;
@@ -88,6 +88,11 @@ const App: React.FC = () => {
 
   const navigate = useNavigate();
   // Steps for the tour, targeting each sibling component
+
+  useEffect(() => {
+    //set Auth header in case someone reload the browser tab
+    setAuthHeader();
+  }, []);
 
   const [collapsed, setCollapsed] = useState(false);
   const [location, setLocation] = useState<string>("/home");
