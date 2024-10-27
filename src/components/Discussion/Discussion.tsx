@@ -277,8 +277,10 @@ function Discussion() {
               )}
             </div>
           </div>
-          <Space.Compact style={{ width: "100%" }} className="commentBox">
+
+          <Space.Compact style={{ width: "100%" }} className={`commentBox`}>
             <Input
+              disabled={!disCmtSelected}
               className="!mx-2"
               onSubmit={addDiscussionComment}
               value={_newDiscussion}
@@ -289,6 +291,7 @@ function Discussion() {
               placeholder="Write a comment"
             />
             <Button
+              disabled={!disCmtSelected}
               onClick={addDiscussionComment}
               className="bg-orgbutton mr-5"
             >

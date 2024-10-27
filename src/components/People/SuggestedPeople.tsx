@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getUser } from "../../helpers/helper";
+import { getUser, Loader } from "../../helpers/helper";
 import { getPeopleFromDb } from "../../services/api";
 import { Avatar, List, Modal, Skeleton } from "antd";
 import Profile from "../Profile/Profile";
@@ -46,33 +46,37 @@ function SuggestedPeople() {
         </Link>
       </div>
       <hr className="pb-3 !border-[#9ca3af]" />
-      <List
-        className="w-[500px]"
-        itemLayout="horizontal"
-        dataSource={users}
-        renderItem={(item: User) => (
-          <List.Item
-            actions={[
-              <span
-                key="list-loadmore-more"
-                className="cursor-pointer"
-                onClick={() => {
-                  setCurrentUser(item);
-                  setModalState(true);
-                }}
-              >
-                View
-              </span>,
-            ]}
-          >
-            <List.Item.Meta
-              avatar={<Avatar src={item.img} size={40} />}
-              title={<p className="pb-2">{item.username}</p>}
-              description={item.role}
-            />
-          </List.Item>
-        )}
-      />
+      {!users ? (
+        <Loader width={400} />
+      ) : (
+        <List
+          className="w-[500px]"
+          itemLayout="horizontal"
+          dataSource={users}
+          renderItem={(item: User) => (
+            <List.Item
+              actions={[
+                <span
+                  key="list-loadmore-more"
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setCurrentUser(item);
+                    setModalState(true);
+                  }}
+                >
+                  View
+                </span>,
+              ]}
+            >
+              <List.Item.Meta
+                avatar={<Avatar src={item.img} size={40} />}
+                title={<p className="pb-2">{item.username}</p>}
+                description={item.role}
+              />
+            </List.Item>
+          )}
+        />
+      )}
       {modalState ? (
         <Modal
           className="peopleModal"

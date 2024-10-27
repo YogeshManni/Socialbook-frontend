@@ -21,11 +21,11 @@ import notFoundImage from "../../assets/img/notfoundimg.jpg";
 import Comments from "../Discussion/Comments/Comments";
 import moment from "moment";
 import { Image } from "antd";
-import { getUser } from "../../helpers/helper";
+import { getUser, Loader } from "../../helpers/helper";
 import SuggestedPeople from "../People/SuggestedPeople";
 
 const Posts = () => {
-  const [posts, setPosts]: any = useState();
+  const [posts, setPosts]: any = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [postId, setPostId] = useState(0);
   const [comment, setComment] = useState("");
@@ -34,6 +34,7 @@ const Posts = () => {
   const getPosts = async () => {
     const email = getUser().email;
     const posts = await getPostsFromDb({ email: email });
+
     posts.posts.forEach((item: any, ind: number) => {
       item.input = "";
       item.showEmoji = false;
@@ -100,8 +101,8 @@ const Posts = () => {
   }
   return (
     <section className="flex flex-col  items-center">
-      {!posts ? (
-        <Skeleton active />
+      {posts === null ? (
+        <Loader width={400} />
       ) : (
         posts.map((post: any, ind: number) => (
           <div key={ind}>

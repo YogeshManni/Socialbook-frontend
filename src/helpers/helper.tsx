@@ -25,13 +25,18 @@ export const logout = async () => {
   window.location.href = "/";
 };
 
-export const Loader = () => {
+interface LoaderProps {
+  width?: number;
+}
+
+export const Loader = (props: LoaderProps) => {
+  console.log(props.width);
   return (
     <>
       {" "}
       {Array.from({ length: 3 }).map((_, idx) => (
         <>
-          <Skeleton key={idx} active />
+          <Skeleton key={idx} active className={`w-[${props.width}px] p-5`} />
           <br />
           <br />
         </>

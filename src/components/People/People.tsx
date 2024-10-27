@@ -6,9 +6,10 @@ import { getUsersFromDb } from "../../services/api";
 import Profile from "../Profile/Profile";
 import Search from "antd/es/input/Search";
 import { filterUserData } from "./filter";
+import { Loader } from "../../helpers/helper";
 function People() {
   // searched users
-  const [users, setUsers]: any = useState([]);
+  const [users, setUsers]: any = useState();
   // users fetched from db
   const [dbUsers, setDbUsers]: any = useState([]);
   const [modalState, setModalState]: any = useState(false);
@@ -18,8 +19,9 @@ function People() {
   const [filter, setFilter] = useState<string>("Name");
 
   const _getUsers = async () => {
+    const res = await getUsersFromDb();
+
     try {
-      const res = await getUsersFromDb();
       console.log(res);
       setUsers([...res]);
       setDbUsers([...res]);
@@ -74,7 +76,9 @@ function People() {
         className="md:w-[50%]"
       />
       <Row style={{ marginTop: "50px" }} gutter={[18, 18]}>
-        {users &&
+        {!users ? (
+          <Loader />
+        ) : (
           users.map((item: any, idx: any) => (
             <Col key={idx}>
               <Card
@@ -104,7 +108,8 @@ function People() {
                 </div>
               </Card>
             </Col>
-          ))}
+          ))
+        )}
       </Row>
       {modalState ? (
         <Modal
