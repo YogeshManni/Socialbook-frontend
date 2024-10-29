@@ -102,7 +102,7 @@ function People() {
                 <hr />
                 <div className="cardData">
                   <p className="overflow-hidden text-ellipsis whitespace-nowrap">
-                    {item.role || item.org || item.phoneno}{" "}
+                    {item.role || item.org || item.phoneno || item.email}{" "}
                     {/* Display any one of these three items */}
                   </p>
                 </div>

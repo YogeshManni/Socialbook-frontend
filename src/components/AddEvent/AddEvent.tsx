@@ -155,12 +155,12 @@ const AddEvent = forwardRef(({ getAddEvent, newPost, postData }: any, ref) => {
                 type="primary"
                 onClick={() => setModalState(false)}
                 size="large"
-                className="mr-5 bg-sbutton"
+                className="mr-5 "
               >
                 Cancel
               </Button>
               <Button
-                className="bg-sbutton"
+                className=""
                 type="primary"
                 htmlType="submit"
                 size="large"

@@ -23,6 +23,7 @@ import moment from "moment";
 import { Image } from "antd";
 import { getUser, Loader } from "../../helpers/helper";
 import SuggestedPeople from "../People/SuggestedPeople";
+import Chat from "../Chat/Chat";
 
 const Posts = () => {
   const [posts, setPosts]: any = useState(null);
