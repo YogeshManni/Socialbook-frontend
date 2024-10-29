@@ -181,3 +181,19 @@ export const getPeopleFromDb = async (role: string, id: Number) => {
     return res.data;
   });
 };
+
+export const addMsgTodb = async (data: any) => {
+  return await axios
+    .post(`${baseURL}/messages/addMessage`, data)
+    .then((res) => {
+      return res.data;
+    });
+};
+
+export const getMessagesFromDb = async (data: any) => {
+  return await axios
+    .post(`${baseURL}/messages/getMessages`, data)
+    .then((res) => {
+      return res.data;
+    });
+};

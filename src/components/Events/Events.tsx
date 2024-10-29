@@ -172,7 +172,7 @@ const Events = () => {
               <Modal
                 title="Add Event"
                 open={true}
-                okButtonProps={{ style: { backgroundColor: "#8b5cf6" } }}
+                okButtonProps={{}}
                 onOk={() => addEventRef.current.addEvent()}
                 okText={
                   postData &&

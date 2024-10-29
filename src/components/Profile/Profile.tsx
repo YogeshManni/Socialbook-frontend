@@ -8,24 +8,29 @@ import {
   UploadProps,
   message,
 } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Profile.css";
-import { UploadOutlined } from "@ant-design/icons";
+import { MessageOutlined, UploadOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { getUser } from "../../helpers/helper";
 import { saveUserDataDb, updateUserinDb } from "../../services/api";
 import upload from "../../lib/upload";
+import Chat from "../Chat/Chat";
+import { ChatContext } from "../../App";
 
 function Profile(props: any) {
+  const { setChat, setChatUser }: any = useContext(ChatContext);
   const [dateTime, setDateTime]: any = useState("");
   const [userdata, setUserData]: any = useState(null);
+
   const [isuploading, setUploading] = useState<boolean>(false);
   const currentUser = getUser();
 
   useEffect(() => {
+    console.log(props);
     //initlaizing datetime for new profle pic
     if (!dateTime) setDateTime(String(moment().format()));
-
+    setChatUser(props.user);
     setUserData(props.user);
   }, []);
 
@@ -109,7 +114,7 @@ function Profile(props: any) {
                 </b>
 
                 <p className="text-[13px]">{userdata.phoneno}</p>
-                {userdata.username === currentUser.username && (
+                {userdata.username === currentUser.username ? (
                   <Upload {...uploadprops} className="mt-2 = !">
                     <Button
                       className=" bg-sbutton border-sbutton round-[20px] !"
@@ -118,6 +123,14 @@ function Profile(props: any) {
                       Upload Profile pic
                     </Button>
                   </Upload>
+                ) : (
+                  <Button
+                    className=" bg-sbutton border-sbutton round-[20px] text-dullwhite mt-4"
+                    icon={<MessageOutlined />}
+                    onClick={() => setChat(true)}
+                  >
+                    Chat
+                  </Button>
                 )}
               </div>
             </Card>
