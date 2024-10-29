@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { createContext, useEffect, useRef, useState } from "react";
 import {
   AppstoreAddOutlined,
   DesktopOutlined,
@@ -30,9 +30,12 @@ import { getUser, logout, setAuthHeader } from "./helpers/helper";
 import Register from "./components/Register/Register";
 import CreatePost from "./components/createpost/CreatePost";
 import SuggestedPeople from "./components/People/SuggestedPeople";
+import Chat from "./components/Chat/Chat";
 const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
+
+export const ChatContext = createContext({});
 
 function getItem(
   label: React.ReactNode,
@@ -85,11 +88,11 @@ export const LogoComponent = () => {
 };
 
 const App: React.FC = () => {
-  const [open, setOpen] = useState(false);
+  const [chatUser, setChatUser] = useState(false);
 
   const navigate = useNavigate();
   // Steps for the tour, targeting each sibling component
-
+  const [openChat, setChat] = useState<boolean>(false);
   const [collapsed, setCollapsed] = useState(false);
   const [location, setLocation] = useState<string>("/home");
   const {
@@ -222,26 +225,32 @@ const App: React.FC = () => {
                   background: colorBgContainer,
                 }}
               >
-                <Routes>
-                  <Route
-                    path="/posts"
-                    element={
-                      <div className="flex justify-around">
-                        <Posts />
-                        <div className="xl:block hidden">
-                          <SuggestedPeople />
+                <ChatContext.Provider
+                  value={{ setChat, setChatUser, chatUser }}
+                >
+                  <Routes>
+                    <Route
+                      path="/posts"
+                      element={
+                        <div className="flex justify-around">
+                          <Posts />
+                          <div className="xl:block hidden">
+                            <SuggestedPeople />
+                          </div>
                         </div>
-                      </div>
-                    }
-                  ></Route>
+                      }
+                    ></Route>
 
-                  <Route path="/events" element={<Events></Events>}></Route>
-                  <Route path="/discussions" element={<Discussion />}></Route>
-                  <Route path="/create" element={<CreatePost />}></Route>
-                  <Route path="/people" element={<People />}></Route>
-                </Routes>
+                    <Route path="/events" element={<Events></Events>}></Route>
+                    <Route path="/discussions" element={<Discussion />}></Route>
+                    <Route path="/create" element={<CreatePost />}></Route>
+                    <Route path="/people" element={<People />}></Route>
+                  </Routes>
+                  {openChat && <Chat />}
+                </ChatContext.Provider>
               </div>
             </Content>
+
             <Footer
               style={{
                 textAlign: "center",
