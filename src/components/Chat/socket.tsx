@@ -22,8 +22,8 @@ export const sendMessage = (messageData: any) => {
 };
 
 // Function to remove user
-export const removeUser = () => {
-  socket.emit("removeuser");
+export const removeUser = (userId: number) => {
+  socket.emit("removeuser", userId);
 };
 
 // Function to disconnect socket

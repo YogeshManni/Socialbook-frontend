@@ -39,6 +39,7 @@ const Chat = () => {
   };
 
   useEffect(() => {
+    console.log("mounted");
     // Register user on mount
     registerUser();
 
@@ -47,20 +48,23 @@ const Chat = () => {
 
     // Listen for incoming messages
     const handleMessage = (data: any) => {
-      const { message, from } = data;
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { ...message, fromUser: from.id },
-      ]);
+      const { message, from, to } = data;
+
+      if (from.id === chatUser.id) {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { ...message, fromUser: from.id },
+        ]);
+      }
     };
 
     listenForMessages(handleMessage);
 
     return () => {
       // Cleanup listener on unmount
-      removeHandler(handleMessage);
 
-      removeUser(); //  remove user on unmount
+      removeHandler(handleMessage);
+      removeUser(getUser().id); //  remove user on unmount
     };
   }, []);
 

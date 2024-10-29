@@ -69,7 +69,7 @@ export const addCommentTodb = async (data: any) => {
 
 export const getCommentFromdb = async (id: any, type: any) => {
   let res = null;
-  if (type == "event")
+  if (type === "event")
     res = await axios.get(`${baseURL}/event/getEventComments/${id}/${type}`);
   else res = await axios.get(`${baseURL}/event/getComments/${id}/${type}`);
   return res.data;

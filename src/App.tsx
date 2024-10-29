@@ -31,6 +31,7 @@ import Register from "./components/Register/Register";
 import CreatePost from "./components/createpost/CreatePost";
 import SuggestedPeople from "./components/People/SuggestedPeople";
 import Chat from "./components/Chat/Chat";
+import { removeUser } from "./components/Chat/socket";
 const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -128,6 +129,12 @@ const App: React.FC = () => {
 
   const containerClass =
     "appContainer " + (type === "signUp" ? "right-panel-active" : "");
+
+  useEffect(() => {
+    /* return () => {
+      removeUser();
+    }; */
+  }, []);
   return (
     <>
       {!getUser() ? (
