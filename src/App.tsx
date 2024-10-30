@@ -131,9 +131,10 @@ const App: React.FC = () => {
     "appContainer " + (type === "signUp" ? "right-panel-active" : "");
 
   useEffect(() => {
-    /* return () => {
-      removeUser();
-    }; */
+    return () => {
+      console.log("App user remove");
+      removeUser(getUser().id);
+    };
   }, []);
   return (
     <>

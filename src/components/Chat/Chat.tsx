@@ -39,7 +39,9 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    console.log("mounted");
+    console.log("chat user remove upon mounting");
+    //remove user if already connected
+    removeUser(getUser().id);
     // Register user on mount
     registerUser();
 
