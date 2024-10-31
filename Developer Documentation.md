@@ -84,19 +84,12 @@ tsconfig.json
 
 ## 8. Deployment Steps
 
-1. **Deploy Backend**:
-
-   - Use services like AWS EC2, Microsoft Azure, Heroku, or DigitalOcean for deploying the Node.js backend.
-
-2. **Deploy Frontend**:
+1. **Deploy Frontend**:
 
    - Use services like Firebase or AWS S3/CloudFront for the React.js frontend.
 
-3. **Configure CI/CD**:
+2. **Configure CI/CD**:
 
    - Use GitHub Actions or CircleCI to set up continuous integration for automated testing and deployments.
-
-4. **Deploy Database**:
-   - Use services like Aiven, Elephant SQL, or Microsoft Azure to deploy the database on the cloud.
 
 ---
