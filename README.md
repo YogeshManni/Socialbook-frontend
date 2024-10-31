@@ -93,3 +93,7 @@ Please download the flowchart image to see or follow [this link](https://github.
 ### Technical Design Document
 
 You can find my Technical design document at [this link](https://docs.google.com/document/d/1XlS1MFwZJJqKKaXfstARnPk2VyefMXeDmpEgVfT1BUI/edit?usp=sharing).
+
+### Challenges and Learnings
+
+Please find my challenges and learnings documentation [here](https://github.com/YogeshManni/Socialbook-frontend/blob/main/Challenges%20and%20Learnings.md)
