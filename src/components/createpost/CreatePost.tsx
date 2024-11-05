@@ -23,7 +23,7 @@ import Emoji from "../../helpers/picker";
 import Input from "antd/es/input/Input";
 import { useNavigate } from "react-router-dom";
 
-const CreatePost = () => {
+const CreatePost = ({ isStory }: { isStory?: boolean | null }) => {
   const [u_img, setImage]: any = useState("");
   const [dateTime, setDateTime]: any = useState("");
   const [imgName, setImgName] = useState("");
@@ -38,7 +38,7 @@ const CreatePost = () => {
     /* First Step to select content to upload*/
   }
   useEffect(() => {
-    console.log("dsd");
+    console.log(isStory);
     //initlaizing datetime for new post name
     if (!dateTime) setDateTime(String(moment().format()));
     setUser(getUser());
@@ -235,6 +235,7 @@ const CreatePost = () => {
       caption: finalCaption.current,
       date: moment().format("MMM Do yyyy, h:mm:ss a"),
       type: postType,
+      story: isStory,
     };
     setDateTime(null);
 
