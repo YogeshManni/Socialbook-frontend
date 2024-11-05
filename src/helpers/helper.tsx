@@ -44,3 +44,20 @@ export const Loader = (props: LoaderProps) => {
     </>
   );
 };
+
+export const getVideoDuration = (videoUrl: string) => {
+  return new Promise((resolve, reject) => {
+    const videoElement = document.createElement("video");
+    videoElement.src = videoUrl;
+
+    // Event listener to handle when the metadata of the video has loaded
+    videoElement.onloadedmetadata = () => {
+      resolve(videoElement.duration); // The video duration in seconds
+    };
+
+    // If there's an error, reject the promise
+    videoElement.onerror = (error) => {
+      reject("Error loading video");
+    };
+  });
+};
