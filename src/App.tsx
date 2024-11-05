@@ -32,6 +32,7 @@ import CreatePost from "./components/createpost/CreatePost";
 import SuggestedPeople from "./components/People/SuggestedPeople";
 import Chat from "./components/Chat/Chat";
 import { removeUser } from "./components/Chat/socket";
+import Stories from "./components/stories/stories";
 const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -237,8 +238,13 @@ const App: React.FC = () => {
           </div>
 
           <Layout>
-            <Header style={{ padding: 0, background: colorBgContainer }}>
-              <LogoComponent />
+            <Header
+              style={{ padding: 0, background: colorBgContainer, height: 110 }}
+            >
+              {/* <LogoComponent /> */}
+              <div className="flex items-center justify-center">
+                <Stories />
+              </div>
             </Header>
             <Content className={`${!collapsed ? "ml-[200px]" : "ml-[16px]"}`}>
               <br />
