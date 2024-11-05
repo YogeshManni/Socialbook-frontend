@@ -130,12 +130,6 @@ const App: React.FC = () => {
   const containerClass =
     "appContainer " + (type === "signUp" ? "right-panel-active" : "");
 
-  useEffect(() => {
-    return () => {
-      console.log("App user remove");
-      removeUser(getUser().id);
-    };
-  }, []);
   return (
     <>
       {!getUser() ? (
@@ -198,6 +192,7 @@ const App: React.FC = () => {
       ) : (
         <Layout style={{ minHeight: "100vh" }} hasSider={true}>
           <Sider
+            className="hidden md:block"
             style={siderStyle}
             breakpoint="lg"
             collapsedWidth="0"
@@ -220,6 +215,27 @@ const App: React.FC = () => {
               items={items}
             />
           </Sider>
+
+          {/* Bottom Navigation for Mobile */}
+          <div
+            className={`z-50 fixed bottom-0 w-full flex justify-around bg-gray-800 text-white md:hidden border-t border-gray-700`}
+          >
+            {items.map((item: any) => (
+              <button
+                key={item.key}
+                className={` ${
+                  currLoc === item.route && "text-blue-500"
+                } flex flex-col items-center py-2`}
+                onClick={() => {
+                  item.route === "/" ? logout() : navigate(item.route);
+                }}
+              >
+                {item.icon}
+                <span className="text-xs">{item.label}</span>
+              </button>
+            ))}
+          </div>
+
           <Layout>
             <Header style={{ padding: 0, background: colorBgContainer }}>
               <LogoComponent />

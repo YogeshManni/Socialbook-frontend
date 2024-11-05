@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">socialbook</string>
+    <string name="title_activity_main">socialbook</string>
+    <string name="package_name">com.app.socialbook</string>
+    <string name="custom_url_scheme">com.app.socialbook</string>
+</resources>

@@ -41,6 +41,7 @@ const Posts = () => {
       item.showEmoji = false;
     });
     console.log(posts.posts);
+
     setPosts(posts.posts);
   };
 
@@ -103,7 +104,7 @@ const Posts = () => {
   return (
     <section className="flex flex-col  items-center">
       {posts === null ? (
-        <Loader width={400} />
+        <Loader width={500} />
       ) : (
         posts.map((post: any, ind: number) => (
           <div key={ind}>

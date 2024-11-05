@@ -79,7 +79,7 @@ const Events = () => {
       ) : (
         <>
           <Button
-            className="bg-sbutton"
+            className="bg-sbutton  hover:!text-blue-500 text-white font-bold"
             onClick={() => {
               setPostData(null);
               setNewPost(true);
@@ -88,13 +88,17 @@ const Events = () => {
             size={"large"}
             style={{ float: "right" }}
           >
-            <span className="!text-dullwhite font-bold">
+            <span>
               <PlusOutlined />
               &nbsp; Add Event
             </span>
           </Button>
 
-          <Row style={{ marginTop: "50px" }} gutter={[18, 18]}>
+          <Row
+            style={{ marginTop: "50px" }}
+            gutter={[18, 18]}
+            className="flex justify-center sm:justify-start"
+          >
             {events.map((item: any, idx: any) => (
               <Col key={idx}>
                 <div className="d-card">

@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/ios": "^6.1.2",
     "@emoji-mart/data": "^1.2.1",
     "@emoji-mart/react": "^1.1.1",
     "@reduxjs/toolkit": "^2.2.8",
@@ -27,6 +30,7 @@
     "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
     "sass": "^1.79.4",
+    "serve": "^14.2.4",
     "socialbook": "file:",
     "socket.io-client": "^4.8.1",
     "typescript": "^4.9.5",

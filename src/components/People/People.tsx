@@ -75,7 +75,12 @@ function People() {
         value={query}
         className="md:w-[50%]"
       />
-      <Row style={{ marginTop: "50px" }} gutter={[18, 18]}>
+      <Row
+        style={{ marginTop: "50px" }}
+        gutter={[18, 18]}
+        /*    className="!ml-[20%] sm:!ml-[0%]" */
+        className="flex justify-center sm:justify-start"
+      >
         {!users ? (
           <Loader />
         ) : (

@@ -142,21 +142,23 @@ function Discussion() {
   return (
     <div className="discussionContainer">
       <Button
-        className="bg-sbutton mb-2"
+        className="bg-sbutton mb-2 hover:!text-blue-500 text-white font-bold"
         onClick={() => {
           setModalState(true);
         }}
         size={"large"}
         style={{ float: "right" }}
       >
-        <span className="!text-dullwhite font-bold">
+        <span className=" font-bold">
           <PlusOutlined />
           &nbsp; New Discussion
         </span>
       </Button>
 
       <Button
-        className={`md:hidden visible bg-sbutton mb-2`}
+        className={`${
+          !disCmtSelected && "hidden"
+        } md:hidden visible bg-sbutton mb-2`}
         onClick={() => {
           selectDissComments(false);
         }}
@@ -177,7 +179,7 @@ function Discussion() {
           }`}
         >
           {disLoader ? (
-            <Skeleton />
+            <Skeleton active />
           ) : (
             <List
               itemLayout="vertical"
@@ -226,7 +228,7 @@ function Discussion() {
           <div className="!h-[73vh] overflow-y-auto">
             <div className="ml-4  overflow-y-auto">
               {disCommLoader ? (
-                <Skeleton />
+                <Skeleton active />
               ) : (
                 <List
                   itemLayout="vertical"

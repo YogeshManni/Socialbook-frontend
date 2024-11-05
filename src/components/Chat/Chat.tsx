@@ -39,7 +39,6 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    console.log("chat user remove upon mounting");
     //remove user if already connected
     removeUser(getUser().id);
     // Register user on mount
@@ -109,7 +108,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 w-96 h-[500px] bg-gradient-to-b from-gray-100 to-purple-100 shadow-md rounded-lg flex flex-col z-50 shadow-purple-400">
+    <div className="fixed bottom-5 mx-3 md:mx-0 right-0 md:right-5 w-96 sm:w-80 md:w-[400px] md:max-w-[400px] max-w-full sm:max-w-xs h-[500px] bg-gradient-to-b from-gray-100 to-purple-100 shadow-md rounded-lg flex flex-col z-50 shadow-purple-400">
       {/* Header */}
       <div className="bg-blue-400 text-white py-3 px-4 rounded-t-lg flex justify-between items-center">
         <h3 className="font-semibold">{chatUser.username}</h3>
