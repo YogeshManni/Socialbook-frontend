@@ -197,3 +197,9 @@ export const getMessagesFromDb = async (data: any) => {
       return res.data;
     });
 };
+
+export const getStoriesfromDb = async (obj: any) => {
+  return await axios.post(`${baseURL}/posts/stories`, obj).then((res) => {
+    return res.data;
+  });
+};
