@@ -1,30 +1,26 @@
 // Stories.jsx
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import StoryAvatar from "./storyavatar";
 import StoryUploader from "./storiesuploader";
 import StoryViewer from "./storyviewer";
-import { getUser } from "../../helpers/helper";
-import { getStoriesfromDb } from "../../services/api";
+
+import { ChatContext } from "../../App";
 
 const Stories = () => {
-  const [stories, setStories] = useState<any>({});
   const [selectedStory, setSelectedStory] = useState<any>(null);
+  const { stories } = useContext<any>(ChatContext);
 
-  useEffect(() => {
-    const getStories = async () => {
-      const _stories = await getStoriesfromDb(getUser().email);
-      console.log(_stories);
-      setStories(_stories.posts);
-    };
-    getStories();
-  }, []);
+  /* useEffect(() => {
+    console.log(stories);
+  }, [stories]); */
 
   return (
     <div className="p-4">
       <div className="flex">
         <StoryUploader />
         <div className="flex space-x-4">
-          {stories.length > 0 &&
+          {stories &&
+            stories.length > 0 &&
             stories.map((story: any) => (
               <StoryAvatar
                 key={story.id}

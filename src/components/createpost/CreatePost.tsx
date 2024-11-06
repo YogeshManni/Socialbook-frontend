@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 
 import {
   Avatar,
@@ -22,8 +22,15 @@ import upload from "../../lib/upload";
 import Emoji from "../../helpers/picker";
 import Input from "antd/es/input/Input";
 import { useNavigate } from "react-router-dom";
+import { ChatContext } from "../../App";
 
-const CreatePost = ({ isStory }: { isStory?: boolean | null }) => {
+const CreatePost = ({
+  isStory,
+  setModalOpen,
+}: {
+  isStory?: boolean | null;
+  setModalOpen?: any;
+}) => {
   const [u_img, setImage]: any = useState("");
   const [dateTime, setDateTime]: any = useState("");
   const [imgName, setImgName] = useState("");
@@ -33,6 +40,7 @@ const CreatePost = ({ isStory }: { isStory?: boolean | null }) => {
   const [postType, setPostType] = useState("image");
   const [isuploading, setUploading] = useState(false);
   const navigate = useNavigate();
+  const { getStories } = useContext<any>(ChatContext);
 
   {
     /* First Step to select content to upload*/
@@ -241,7 +249,21 @@ const CreatePost = ({ isStory }: { isStory?: boolean | null }) => {
 
     const res = await addPost(data);
     if (res.status === "success") {
-      message.success(`Post uploaded successfully !!`);
+      message.success(
+        `${
+          isStory
+            ? "Story uploaded successfully !!"
+            : "Post uploaded successfully !!"
+        }`
+      );
+
+      // update Stories if its a story
+      if (isStory) {
+        getStories();
+        setModalOpen(false);
+      }
+
+      //navigate to posts page
       navigate("/posts");
     } else {
       message.error("Some error occured, please try again !!");

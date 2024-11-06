@@ -5,20 +5,12 @@ import upload from "../../lib/upload";
 import { getUser } from "../../helpers/helper";
 import CreatePost from "../createpost/CreatePost";
 
-const StoryUploader = ({ onUpload }: any) => {
+const StoryUploader = () => {
   const [isOpen, setModalOpen] = useState<boolean>(false);
 
-  /* const saveStory = async(url:string) =>
-  {
-    const packet  = 
-    {
-        user_id : ,
-media_url : url,
-media_type : ,
-caption : 
-    }
-  } */
-
+  const closeModal = () => {
+    setModalOpen(false);
+  };
   return (
     <div className="flex story mr-4">
       <div className="flex flex-col items-center">
@@ -44,7 +36,7 @@ caption :
           style={{ top: "10%" }}
         >
           <div className="mt-5 md:h-[700px] h-full ">
-            <CreatePost isStory={true} />
+            <CreatePost isStory={true} setModalOpen={closeModal} />
           </div>
         </Modal>
       )}

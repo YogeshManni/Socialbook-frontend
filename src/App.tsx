@@ -33,6 +33,7 @@ import SuggestedPeople from "./components/People/SuggestedPeople";
 import Chat from "./components/Chat/Chat";
 import { removeUser } from "./components/Chat/socket";
 import Stories from "./components/stories/stories";
+import { getStoriesfromDb } from "./services/api";
 const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -93,7 +94,8 @@ const App: React.FC = () => {
   const [chatUser, setChatUser] = useState(false);
 
   const navigate = useNavigate();
-  // Steps for the tour, targeting each sibling component
+
+  const [stories, setStories] = useState<any>([]);
   const [openChat, setChat] = useState<boolean>(false);
   const [collapsed, setCollapsed] = useState(false);
   const [location, setLocation] = useState<string>("/home");
@@ -130,6 +132,18 @@ const App: React.FC = () => {
 
   const containerClass =
     "appContainer " + (type === "signUp" ? "right-panel-active" : "");
+
+  //  get stories from db
+  const getStories = async () => {
+    const _stories = await getStoriesfromDb(getUser().email);
+    console.log(_stories);
+    setStories(_stories.posts);
+  };
+
+  useEffect(() => {
+    //getstories on app load
+    getStories();
+  }, []);
 
   return (
     <>
@@ -236,27 +250,36 @@ const App: React.FC = () => {
               </button>
             ))}
           </div>
-
-          <Layout>
-            <Header
-              style={{ padding: 0, background: colorBgContainer, height: 110 }}
-            >
-              {/* <LogoComponent /> */}
-              <div className="flex items-center justify-center">
-                <Stories />
-              </div>
-            </Header>
-            <Content className={`${!collapsed ? "ml-[200px]" : "ml-[16px]"}`}>
-              <br />
-              <div
+          <ChatContext.Provider
+            value={{
+              setChat,
+              setChatUser,
+              chatUser,
+              stories,
+              getStories,
+            }}
+          >
+            <Layout>
+              <Header
                 style={{
-                  padding: 24,
-                  minHeight: 360,
+                  padding: 0,
                   background: colorBgContainer,
+                  height: 110,
                 }}
               >
-                <ChatContext.Provider
-                  value={{ setChat, setChatUser, chatUser }}
+                {/* <LogoComponent /> */}
+                <div className="flex items-center justify-center">
+                  <Stories />
+                </div>
+              </Header>
+              <Content className={`${!collapsed ? "ml-[200px]" : "ml-[16px]"}`}>
+                <br />
+                <div
+                  style={{
+                    padding: 24,
+                    minHeight: 360,
+                    background: colorBgContainer,
+                  }}
                 >
                   <Routes>
                     <Route
@@ -277,18 +300,18 @@ const App: React.FC = () => {
                     <Route path="/people" element={<People />}></Route>
                   </Routes>
                   {openChat && <Chat />}
-                </ChatContext.Provider>
-              </div>
-            </Content>
+                </div>
+              </Content>
 
-            <Footer
-              style={{
-                textAlign: "center",
-              }}
-            >
-              Yogesh Manni ©{new Date().getFullYear()}
-            </Footer>
-          </Layout>
+              <Footer
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                Yogesh Manni ©{new Date().getFullYear()}
+              </Footer>
+            </Layout>
+          </ChatContext.Provider>
         </Layout>
       )}
     </>
