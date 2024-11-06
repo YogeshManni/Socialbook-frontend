@@ -26,7 +26,7 @@ caption :
           <img
             src={getUser().img}
             alt={getUser().username}
-            className="object-cover w-16 h-16 rounded-full border-2 border-blue-500 p-0.5 transition-all duration-300 ease-in-out transform group-hover:scale-105"
+            className="object-cover w-16 h-16 rounded-full border-2  p-0.5 transition-all duration-300 ease-in-out transform group-hover:scale-105"
           />
         </button>
         <span className="mt-1 inline-block leading-tight">+ Upload</span>
