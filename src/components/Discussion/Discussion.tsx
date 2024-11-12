@@ -97,6 +97,7 @@ function Discussion() {
       const user = getUser();
       // create packet for discussion comment
       const data = {
+        id: dissData.length + 1,
         discussionid: discussionId,
         name: user.username,
         img: user.img,
@@ -134,6 +135,7 @@ function Discussion() {
 
     const data = await getDiscussionCommToDb(id);
 
+    console.log(data.data);
     setDissData(data.data);
     selectDissComments(true);
     setDisCommLoader(false);
@@ -247,8 +249,9 @@ function Discussion() {
                         </Button>,
                         <Button
                           onClick={() => {
+                            //console.log(item.id);
                             showModal();
-                            setDiscussionCommId(item.id);
+                            setDiscussionCommId(item.commentid);
                           }}
                         >
                           <IconText

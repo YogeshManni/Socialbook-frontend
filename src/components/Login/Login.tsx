@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, message } from "antd";
-import { LogoComponent } from "../../App";
+import { ChatContext, LogoComponent } from "../../App";
 import { Link, useNavigate } from "react-router-dom";
 import { loginFromDb } from "../../services/api";
 import { setAuthHeader, setUser } from "../../helpers/helper";
@@ -12,6 +12,7 @@ export default function Login(props: any) {
   const [login, setLogin] = useState(false);
   const [usernameFound, setUsernameFound] = useState(true);
   const [passwordStatus, setPasswordStatus] = useState(true);
+  const { getStories } = useContext<any>(ChatContext);
 
   const onLogin = async (data: any) => {
     setLogin(true);
@@ -29,6 +30,7 @@ export default function Login(props: any) {
     } else if (res.status === "success") {
       setUser(res);
       message.success("Login succeed, getting you to homepage !");
+      getStories(); // get stories from db
       setAuthHeader();
       setLogin(false);
       setTimeout(() => {

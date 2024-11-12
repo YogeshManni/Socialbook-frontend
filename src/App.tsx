@@ -136,129 +136,130 @@ const App: React.FC = () => {
   //  get stories from db
   const getStories = async () => {
     const _stories = await getStoriesfromDb(getUser().email);
-    console.log(_stories);
+    console.log(_stories.posts);
     setStories(_stories.posts);
   };
 
   useEffect(() => {
-    //getstories on app load
-    getStories();
+    // only get stories if user is logged in
+    if (getUser()) getStories();
   }, []);
-
   return (
     <>
-      {!getUser() ? (
-        <div className="h-[100vh]">
-          <div className={containerClass} id="container">
-            <Routes>
-              {/*  {type == "signIn" ? ( */}
-              <Route
-                path="/"
-                element={<Login changeType={handleOnClick}></Login>}
-              ></Route>
-              {/*      ) : ( */}
-              <Route
-                path="/register"
-                element={<Register changeType={handleOnClick}></Register>}
-              ></Route>
-              {/*  )} */}
-            </Routes>
-            <div className="overlay-container hidden lg:block">
-              <div className="overlay">
-                <div className="overlay-panel overlay-left">
-                  <h1 className="text-[50px]">Welcome Back!</h1>
-                  <p className="text-[20px] mt-2">
-                    To keep connected with us please login with your personal
-                    info :)
-                  </p>
-                  <Link to="/">
-                    <Button
-                      className="bg-sbutton w-[100px] border-dullwhite mt-5"
-                      type="primary"
-                      size="large"
-                      id="signIn"
-                      onClick={() => handleOnClick("signIn")}
-                    >
-                      Sign In
-                    </Button>
-                  </Link>
-                </div>
-                <div className="overlay-panel overlay-right">
-                  <h1 className="text-[50px]">Hello, Friend!</h1>
-                  <p className="text-[20px] mt-2">
-                    Don't have an account? Click on Sign Up below and get one :)
-                  </p>
-                  <Link to="/register">
-                    <Button
-                      className="bg-sbutton w-[100px] border-dullwhite mt-5"
-                      type="primary"
-                      size="large"
-                      id="signUp"
-                      onClick={() => handleOnClick("signUp")}
-                    >
-                      Sign Up
-                    </Button>
-                  </Link>
+      <ChatContext.Provider
+        value={{
+          setChat,
+          setChatUser,
+          chatUser,
+          stories,
+          getStories,
+        }}
+      >
+        {!getUser() ? (
+          <div className="h-[100vh]">
+            <div className={containerClass} id="container">
+              <Routes>
+                {/*  {type == "signIn" ? ( */}
+                <Route
+                  path="/"
+                  element={<Login changeType={handleOnClick}></Login>}
+                ></Route>
+                {/*      ) : ( */}
+                <Route
+                  path="/register"
+                  element={<Register changeType={handleOnClick}></Register>}
+                ></Route>
+                {/*  )} */}
+              </Routes>
+              <div className="overlay-container hidden lg:block">
+                <div className="overlay">
+                  <div className="overlay-panel overlay-left">
+                    <h1 className="text-[50px]">Welcome Back!</h1>
+                    <p className="text-[20px] mt-2">
+                      To keep connected with us please login with your personal
+                      info :)
+                    </p>
+                    <Link to="/">
+                      <Button
+                        className="bg-sbutton w-[100px] border-dullwhite mt-5"
+                        type="primary"
+                        size="large"
+                        id="signIn"
+                        onClick={() => handleOnClick("signIn")}
+                      >
+                        Sign In
+                      </Button>
+                    </Link>
+                  </div>
+                  <div className="overlay-panel overlay-right">
+                    <h1 className="text-[50px]">Hello, Friend!</h1>
+                    <p className="text-[20px] mt-2">
+                      Don't have an account? Click on Sign Up below and get one
+                      :)
+                    </p>
+                    <Link to="/register">
+                      <Button
+                        className="bg-sbutton w-[100px] border-dullwhite mt-5"
+                        type="primary"
+                        size="large"
+                        id="signUp"
+                        onClick={() => handleOnClick("signUp")}
+                      >
+                        Sign Up
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <Layout style={{ minHeight: "100vh" }} hasSider={true}>
-          <Sider
-            className="hidden md:block"
-            style={siderStyle}
-            breakpoint="lg"
-            collapsedWidth="0"
-            collapsible
-            /*   style={{ position: "fixed" }} */
-            onBreakpoint={(broken) => {
-              //console.log(broken);
-            }}
-            collapsed={collapsed}
-            onCollapse={(value) => setCollapsed(value)}
-          >
-            <div className="h-[20px] auto m-5 flex items-center justify-center">
-              <img src={logo} className=" h-auto" alt="logo"></img>
-            </div>
-            <Menu
-              onClick={menuClick}
-              theme="dark"
-              selectedKeys={[MenuKeys[location] || "0"]}
-              mode="inline"
-              items={items}
-            />
-          </Sider>
+        ) : (
+          <Layout style={{ minHeight: "100vh" }} hasSider={true}>
+            <Sider
+              className="hidden md:block"
+              style={siderStyle}
+              breakpoint="lg"
+              collapsedWidth="0"
+              collapsible
+              /*   style={{ position: "fixed" }} */
+              onBreakpoint={(broken) => {
+                //console.log(broken);
+              }}
+              collapsed={collapsed}
+              onCollapse={(value) => setCollapsed(value)}
+            >
+              <div className="h-[20px] auto m-5 flex items-center justify-center">
+                <img src={logo} className=" h-auto" alt="logo"></img>
+              </div>
+              <Menu
+                onClick={menuClick}
+                theme="dark"
+                selectedKeys={[MenuKeys[location] || "0"]}
+                mode="inline"
+                items={items}
+              />
+            </Sider>
 
-          {/* Bottom Navigation for Mobile */}
-          <div
-            className={`z-50 fixed bottom-0 w-full flex justify-around bg-gray-800 text-white md:hidden border-t border-gray-700`}
-          >
-            {items.map((item: any) => (
-              <button
-                key={item.key}
-                className={` ${
-                  currLoc === item.route && "text-blue-500"
-                } flex flex-col items-center py-2`}
-                onClick={() => {
-                  item.route === "/" ? logout() : navigate(item.route);
-                }}
-              >
-                {item.icon}
-                <span className="text-xs">{item.label}</span>
-              </button>
-            ))}
-          </div>
-          <ChatContext.Provider
-            value={{
-              setChat,
-              setChatUser,
-              chatUser,
-              stories,
-              getStories,
-            }}
-          >
+            {/* Bottom Navigation for Mobile */}
+            <div
+              className={`z-50 fixed bottom-0 w-full flex justify-around bg-gray-800 text-white md:hidden border-t border-gray-700`}
+            >
+              {items.map((item: any) => (
+                <button
+                  key={item.key}
+                  className={` ${
+                    currLoc === item.route && "text-blue-500"
+                  } flex flex-col items-center py-2`}
+                  onClick={() => {
+                    item.route === "/" ? logout() : navigate(item.route);
+                  }}
+                >
+                  {item.icon}
+                  <span className="text-xs">{item.label}</span>
+                </button>
+              ))}
+            </div>
+
             <Layout>
               <Header
                 style={{
@@ -311,9 +312,9 @@ const App: React.FC = () => {
                 Yogesh Manni ©{new Date().getFullYear()}
               </Footer>
             </Layout>
-          </ChatContext.Provider>
-        </Layout>
-      )}
+          </Layout>
+        )}
+      </ChatContext.Provider>
     </>
   );
 };
