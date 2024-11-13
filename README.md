@@ -1,6 +1,31 @@
 # SOCIALBOOK
 
+## Table of Contents
+
+1. [Project Summary](#project-summary)
+
+   - [Problem Statement](#problem-statement)
+   - [Solution](#solution)
+
+2. [Key Features](#key-features)
+
+3. [Setup Instructions](#setup-instructions)
+
+4. [User Document](#user-document)
+
+5. [Key Performance Indicators (KPIs)](#key-performance-indicators-kpis)
+
+6. [Competitive Analysis](#competitive-analysis)
+
+7. [Flow Chart](#flow-chart)
+
+8. [Technical Design Document](#technical-design-document)
+
+9. [Challenges and Learnings](#challenges-and-learnings)
+
 ## Project Summary
+
+<div style="margin-left:2rem">
 
 ### Problem Statement
 
@@ -14,6 +39,12 @@ Students and universities often face significant challenges due to fragmented co
 
 In short, the overwhelming spread of information across disparate systems makes managing communication and staying updated nearly impossible for students and faculty alike.
 
+</div>
+
+---
+
+<div style="margin-left:2rem">
+
 ### Solution
 
 Socialbook provides an integrated solution that consolidates communication channels into a single, user-friendly platform designed specifically for academic environments. By bringing together features for academic discussions, social interactions, and event management, the app offers the following benefits:
@@ -26,6 +57,10 @@ Socialbook provides an integrated solution that consolidates communication chann
 
 In summary, this app addresses the key issues of fragmented communication, offering a comprehensive solution that simplifies the university experience by making communication, content sharing, and event management more efficient.
 
+</div>
+
+---
+
 ## Key Features
 
 - **Posts:** Users can share images and videos, with options for likes and comments, facilitating vibrant interactions.
@@ -33,10 +68,61 @@ In summary, this app addresses the key issues of fragmented communication, offer
 - **People Page:** A dynamic directory that lists all users with their relevant information, making it simple to connect with peers and faculty.
 - **Discussions:** Topic-driven discussion forums where users can engage in academic or social conversations.
 - **Profile:** Users can customize their profiles with personal details, academic info, and a profile picture to enhance connections within the community.
+- **Real time Chatting:** Users can chat with each other in real time, making it easy to communicate and collaborate.
+- **Stories:** Users can post stories, which can be viewed by others, allowing for a more personal and engaging experience. Stories lasts for 24 hours.
 
-## Developer Document
+## Setup Instructions
 
-For project configuration and dependencies, please read developer documentation [here](https://github.com/YogeshManni/Socialbook-frontend/blob/main/Developer%20Documentation.md)
+1. **Clone the Repository:**
+
+   Run the following command:
+
+   ```bash
+   git clone https://github.com/YogeshManni/Socialbook-frontend
+   ```
+
+2. **Install Dependencies:**
+
+   Navigate to the project folder and install the necessary packages:
+
+   ```bash
+   npm install
+   ```
+
+   This will install all your dependencies defined in `package.json`
+
+3. **Environment Variables:**
+
+   Create a `.env` file in the root directory to store environment variables such as the database URL, JWT secret key, and any third-party API keys. Example:
+
+   ```env
+   REACT_APP_BASEURL = your backend url
+   REACT_APP_FIREBASE_APIKEY = your firebase api
+   REACT_APP_FIREBASE_AUTHDOMAIN = your firebase domain
+   REACT_APP_FIREBASE_PROJECTID = your firebase projectid
+   REACT_APP_FIREBASE_STORAGEBUCKET = your firebase bucket
+   REACT_APP_FIREBASE_MSGSNDID = your firebase message id
+   REACT_APP_FIREBASE_APPID = your firebase app id
+   REACT_APP_MODERATIONURL = moderation url
+   REACT_APP_API_USER = moderation user id
+   REACT_APP_API_SECRET = moderation secret
+   ```
+
+4. **Start the Application:**
+
+   Use the following command to run the development server:
+
+   ```bash
+   npm start
+   ```
+
+   - The frontend will be available on `http://localhost:3000`
+
+#### Full Developer Document
+
+For a detailed documentation,please read developer documentation [here](https://github.com/YogeshManni/Socialbook-frontend/blob/main/Developer%20Documentation.md)
+
+---
 
 ## User Document
 
@@ -62,6 +148,8 @@ For Project Navigation and user flow, please see User Documentation
 | Slack           | slack.com           | Web, iOS, Android, Windows, Mac | 10M+      | Freemium, subscription | 10+ years      |
 | Microsoft Teams | microsoft.com/teams | Web, iOS, Android, Windows, Mac | 100M+     | Freemium, subscription | 7+ years       |
 
+---
+
 ### Key Features and Analysis:
 
 **Jostle**
@@ -86,14 +174,20 @@ For Project Navigation and user flow, please see User Documentation
 
 While Jostle, Slack, and Microsoft Teams are great for businesses, they don’t fully meet the needs of universities. They lack tools for student engagement, academic discussions, and simplified event and content sharing. The new app aims to solve these problems by offering a platform tailored to education, bringing communication, collaboration, and community together in one place.
 
-## Flow Chart
+### Flow Chart
 
 Please download the flowchart image to see or follow [this link](https://github.com/YogeshManni/Socialbook-frontend/blob/main/socialbook%20flowchart.png) to see it on my Github repository.
 
 ### Technical Design Document
 
+---
+
 You can find my Technical design document at [this link](https://docs.google.com/document/d/1XlS1MFwZJJqKKaXfstARnPk2VyefMXeDmpEgVfT1BUI/edit?usp=sharing).
 
 ### Challenges and Learnings
 
+---
+
 Please find my challenges and learnings documentation [here](https://github.com/YogeshManni/Socialbook-frontend/blob/main/Challenges%20and%20Learnings.md)
+
+[Go to Top](#socialbook)
