@@ -37,7 +37,7 @@ const Events = () => {
       return;
     }
     let res = null;
-    console.log(eventData);
+    //console.log(eventData);
     if (postData !== null && postData.username === getUser().username) {
       //update event
       res = await updateEventInDb(eventData);
@@ -52,7 +52,7 @@ const Events = () => {
 
   const _getEvents = async () => {
     const eves = await getEventFromDb();
-    console.log(eves);
+    //console.log(eves);
     setEvents(eves);
   };
 

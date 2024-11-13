@@ -31,10 +31,10 @@ const Chat = () => {
         from_user: getUser().id,
         to_user: chatUser.id,
       });
-      console.log(data);
+      //console.log(data);
       setMessages(data.data);
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
   };
 
@@ -89,7 +89,7 @@ const Chat = () => {
       try {
         await addMsgTodb(newMessage);
       } catch (e) {
-        console.log(e);
+        //console.log(e);
       }
     }
   };

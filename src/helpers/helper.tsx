@@ -30,7 +30,7 @@ interface LoaderProps {
 }
 
 export const Loader = (props: LoaderProps) => {
-  console.log(props.width);
+  //console.log(props.width);
   return (
     <>
       {" "}

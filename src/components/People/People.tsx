@@ -22,12 +22,12 @@ function People() {
     const res = await getUsersFromDb();
 
     try {
-      console.log(res);
+      //console.log(res);
       setUsers([...res]);
       setDbUsers([...res]);
       setQuery("");
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
   };
   useEffect(() => {

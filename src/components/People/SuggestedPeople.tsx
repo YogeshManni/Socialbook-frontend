@@ -25,10 +25,10 @@ function SuggestedPeople() {
       try {
         const user = getUser();
         const res = await getPeopleFromDb(user.role, user.id);
-        console.log(res);
+        //console.log(res);
         setUsers(res.data);
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     };
     _getSuggPeople();

@@ -40,7 +40,7 @@ const Posts = () => {
       item.input = "";
       item.showEmoji = false;
     });
-    console.log(posts.posts);
+    //console.log(posts.posts);
 
     setPosts(posts.posts);
   };
@@ -50,7 +50,7 @@ const Posts = () => {
   }, []);
 
   const handleComment = (e: any, post: any) => {
-    console.log(e);
+    //console.log(e);
     if (e.native) post.input += e.native;
     else post.input = e.target.value;
     setComment(post.input);
@@ -78,7 +78,7 @@ const Posts = () => {
       post.likes -= 1;
       type = "rem";
     }
-    console.log(posts);
+    //console.log(posts);
     setPosts([...posts]);
     updatePostLikesInDb({ id: post.id, username: user, type: type });
   }

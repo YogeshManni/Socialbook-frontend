@@ -27,7 +27,7 @@ function Profile(props: any) {
   const currentUser = getUser();
 
   useEffect(() => {
-    console.log(props);
+    //console.log(props);
     //initlaizing datetime for new profle pic
     if (!dateTime) setDateTime(String(moment().format()));
     setChatUser(props.user);

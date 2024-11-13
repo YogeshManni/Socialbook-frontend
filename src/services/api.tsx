@@ -8,7 +8,7 @@ axios.interceptors.request.use(
     // Check if the 'Authorization' header exists
     if (!config.headers["Authorization"]) {
       // Handle missing 'Authorization' header
-      console.warn("Authorization header missing!");
+      //console.warn("Authorization header missing!");
 
       const token = sessionStorage.getItem("token");
 
@@ -25,7 +25,7 @@ axios.interceptors.request.use(
 );
 
 export const addEventToDb = async (data: any) => {
-  console.log(data);
+  //console.log(data);
   return await axios.post(`${baseURL}/event/addEvent`, data).then((res) => {
     return res;
   });
@@ -38,7 +38,7 @@ export const updateEventInDb = async (data: any) => {
 };
 
 export const getEventFromDb = async () => {
-  console.log(`${baseURL}/event/`);
+  //console.log(`${baseURL}/event/`);
   return await axios.get(`${baseURL}/event/`).then((res) => {
     return res.data;
   });
@@ -46,7 +46,7 @@ export const getEventFromDb = async () => {
 
 export const getDiscussionsFromDb = async () => {
   return await axios.get(`${baseURL}/event/discussion`).then((res) => {
-    console.log(res.data);
+    //console.log(res.data);
     return res.data;
   });
 };

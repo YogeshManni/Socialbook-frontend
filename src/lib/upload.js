@@ -10,7 +10,7 @@ import { storage } from "./firebase";
 const upload = async (file, filename) => {
   // Create the file metadata
   /** @type {any} */
-  console.log(file, filename);
+  //console.log(file, filename);
   // Upload file and metadata to the object 'images/mountains.jpg'
   const storageRef = ref(storage, "images/" + filename);
   const uploadTask = uploadBytesResumable(storageRef, file);
@@ -23,13 +23,13 @@ const upload = async (file, filename) => {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        // console.log("Upload is " + progress + "% done");
+        // //console.log("Upload is " + progress + "% done");
         switch (snapshot.state) {
           case "paused":
-            console.log("Upload is paused");
+            //console.log("Upload is paused");
             break;
           case "running":
-            console.log("Upload is running");
+            //console.log("Upload is running");
             break;
         }
       },
@@ -51,10 +51,10 @@ const upload = async (file, filename) => {
           } */
       },
       () => {
-        console.log("uploaded successfully");
+        //console.log("uploaded successfully");
         // Upload completed successfully, now we can get the download URL
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log(downloadURL);
+          //console.log(downloadURL);
           resolve(downloadURL);
         });
       }

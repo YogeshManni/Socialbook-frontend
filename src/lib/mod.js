@@ -11,7 +11,7 @@ const Moderate = async (text) => {
   data.append("text", text); // Append the text parameter correctly
 
   try {
-    console.log("Making API request with text:", text);
+    //console.log("Making API request with text:", text);
 
     return await fetch(process.env.REACT_APP_MODERATIONURL, {
       method: "POST",
@@ -20,15 +20,15 @@ const Moderate = async (text) => {
       .then((res) => res.json())
       .then((response) => {
         // Ensure you log the full response
-        console.log("API Response:", response);
+        //console.log("API Response:", response);
 
         // Handle the actual response
         const moderationData = response.moderation_classes;
         if (!moderationData) {
-          console.log("No moderation data returned!");
+          //console.log("No moderation data returned!");
           return true;
         }
-        console.log(moderationData);
+        //console.log(moderationData);
         const notValid =
           moderationData.sexual >= 0.2 ||
           moderationData.discriminatory >= 0.2 ||
@@ -37,7 +37,7 @@ const Moderate = async (text) => {
           moderationData.toxic >= 0.2 ||
           moderationData["self-harm"] >= 0.2;
 
-        console.log("Moderation validation result:", notValid);
+        //console.log("Moderation validation result:", notValid);
         return notValid; // Return the moderation result
       });
   } catch (error) {

@@ -46,7 +46,7 @@ const CreatePost = ({
     /* First Step to select content to upload*/
   }
   useEffect(() => {
-    console.log(isStory);
+    //console.log(isStory);
     //initlaizing datetime for new post name
     if (!dateTime) setDateTime(String(moment().format()));
     setUser(getUser());
@@ -63,10 +63,10 @@ const CreatePost = ({
 
     // Set image data after uploading it to firebase
     function setImageData(file: any, url: string) {
-      console.log(file);
+      //console.log(file);
 
       if (file) {
-        console.log(dateTime);
+        //console.log(dateTime);
 
         if (file.type.includes("video")) {
           setPostType("video");
@@ -150,7 +150,7 @@ const CreatePost = ({
 
       // assign outer finalCaption
       finalCaption.current = _caption;
-      console.log(finalCaption.current);
+      //console.log(finalCaption.current);
       setCaption(_caption);
     };
 

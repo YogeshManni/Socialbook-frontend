@@ -10,10 +10,6 @@ const Stories = () => {
   const [selectedStory, setSelectedStory] = useState<any>(null);
   const { stories } = useContext<any>(ChatContext);
 
-  /* useEffect(() => {
-    console.log(stories);
-  }, [stories]); */
-
   return (
     <div className="p-4">
       <div className="flex">

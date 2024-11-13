@@ -94,13 +94,13 @@ const AddEvent = forwardRef(({ getAddEvent, newPost, postData }: any, ref) => {
     if (window.innerWidth < 500) parentHeight -= 60;
     setEditorHeight(parentHeight);
     if (isUpdate()) {
-      console.log(postData.fronttext);
+      //console.log(postData.fronttext);
       SetEventName(postData.fronttext);
     }
     setContent(!newPost && postData.content);
 
     return () => {
-      // console.log("unmounted!!");
+      // //console.log("unmounted!!");
     };
     // editorContentRef.current.value = postData;
   }, []);

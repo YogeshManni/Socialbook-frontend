@@ -61,7 +61,7 @@ export default function Register(props: any) {
   };
 
   const handleChange = (props: any) => {
-    console.log(props);
+    //console.log(props);
     setFileList(props); //props.fileList
   };
   const uploadButton = (
@@ -124,7 +124,7 @@ export default function Register(props: any) {
           duration: 5,
         });
       }
-      console.log(res);
+      //console.log(res);
     }
   };
   function setImageData(file: any, url: string) {
@@ -259,7 +259,7 @@ export default function Register(props: any) {
             <Input
               onBlur={() => {
                 const email = form.getFieldValue("email");
-                console.log(email);
+                //console.log(email);
                 if (emailValidated) {
                   setEmailValidated(true);
                   sendOtp(email); // Send OTP only after email validation on blur

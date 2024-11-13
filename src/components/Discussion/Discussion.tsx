@@ -58,7 +58,7 @@ function Discussion() {
   };
 
   async function handleLikes(item: any) {
-    console.log(item);
+    //console.log(item);
     item.firstTime = false;
     item.likes += 1;
     await addDiscussionCommToDb(item);
@@ -92,7 +92,7 @@ function Discussion() {
     if (_newDiscussion.length <= 0) return;
 
     const isNotValid = await checkText(_newDiscussion);
-    console.log(isNotValid);
+    //console.log(isNotValid);
     if (!isNotValid) {
       const user = getUser();
       // create packet for discussion comment
@@ -135,7 +135,7 @@ function Discussion() {
 
     const data = await getDiscussionCommToDb(id);
 
-    console.log(data.data);
+    //console.log(data.data);
     setDissData(data.data);
     selectDissComments(true);
     setDisCommLoader(false);
@@ -249,7 +249,7 @@ function Discussion() {
                         </Button>,
                         <Button
                           onClick={() => {
-                            //console.log(item.id);
+                            ////console.log(item.id);
                             showModal();
                             setDiscussionCommId(item.commentid);
                           }}

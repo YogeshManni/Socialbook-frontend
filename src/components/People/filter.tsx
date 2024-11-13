@@ -28,6 +28,6 @@ export const filterUserData = (
       break;
   }
 
-  console.log(filteredUsers);
+  //console.log(filteredUsers);
   return filteredUsers;
 };

@@ -123,10 +123,10 @@ const App: React.FC = () => {
   };
 
   //get current route
-  console.log(useLocation().pathname, location);
+  //console.log(useLocation().pathname, location);
   const currLoc = useLocation().pathname;
   if (location !== currLoc) {
-    console.log("hit");
+    //console.log("hit");
     setLocation(currLoc);
   }
 
@@ -136,7 +136,7 @@ const App: React.FC = () => {
   //  get stories from db
   const getStories = async () => {
     const _stories = await getStoriesfromDb(getUser().email);
-    console.log(_stories.posts);
+    //console.log(_stories.posts);
     setStories(_stories.posts);
   };
 
@@ -223,7 +223,7 @@ const App: React.FC = () => {
               collapsible
               /*   style={{ position: "fixed" }} */
               onBreakpoint={(broken) => {
-                //console.log(broken);
+                ////console.log(broken);
               }}
               collapsed={collapsed}
               onCollapse={(value) => setCollapsed(value)}
