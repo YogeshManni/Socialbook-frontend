@@ -184,6 +184,12 @@ Please download the flowchart image to see or follow [this link](https://github.
 
 You can find my Technical design document at [this link](https://docs.google.com/document/d/1XlS1MFwZJJqKKaXfstARnPk2VyefMXeDmpEgVfT1BUI/edit?usp=sharing).
 
+### Research
+
+---
+
+You can find my research document at [this link](https://docs.google.com/document/d/1
+
 ### Challenges and Learnings
 
 ---
