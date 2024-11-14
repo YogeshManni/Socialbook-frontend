@@ -152,6 +152,8 @@ For Project Navigation and user flow, please see User Documentation
 
 ### Key Features and Analysis:
 
+---
+
 **Jostle**
 
 - **Key Features:** Real-time collaboration, news sharing, employee recognition, event management, and a social feed.
@@ -174,25 +176,19 @@ For Project Navigation and user flow, please see User Documentation
 
 While Jostle, Slack, and Microsoft Teams are great for businesses, they don’t fully meet the needs of universities. They lack tools for student engagement, academic discussions, and simplified event and content sharing. The new app aims to solve these problems by offering a platform tailored to education, bringing communication, collaboration, and community together in one place.
 
-### Flow Chart
+## Flow Chart
 
 Please download the flowchart image to see or follow [this link](https://github.com/YogeshManni/Socialbook-frontend/blob/main/socialbook%20flowchart.png) to see it on my Github repository.
 
-### Technical Design Document
-
----
+## Technical Design Document
 
 You can find my Technical design document at [this link](https://docs.google.com/document/d/1XlS1MFwZJJqKKaXfstARnPk2VyefMXeDmpEgVfT1BUI/edit?usp=sharing).
 
-### Research
+## Research
 
----
+You can find my research document at [this link](https://github.com/YogeshManni/Socialbook-frontend/blob/main/Research.md)
 
-You can find my research document at [this link](https://docs.google.com/document/d/1
-
-### Challenges and Learnings
-
----
+## Challenges and Learnings
 
 Please find my challenges and learnings documentation [here](https://github.com/YogeshManni/Socialbook-frontend/blob/main/Challenges%20and%20Learnings.md)
 
