@@ -243,7 +243,7 @@ const CreatePost = ({
       caption: finalCaption.current,
       date: moment().format("MMM Do yyyy, h:mm:ss a"),
       type: postType,
-      story: isStory,
+      story: isStory ?? false,
     };
     setDateTime(null);
 
