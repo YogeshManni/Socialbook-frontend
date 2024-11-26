@@ -4,9 +4,11 @@ export const filterUserData = (
   filter: string
 ): any => {
   const filterByProperty = (property: string) => {
+    //console.log(dbUsers);
     return dbUsers
       .map((user: any) => {
-        if (user[property].toLowerCase().includes(query.toLowerCase()))
+        //console.log(user[property]);
+        if (user[property]?.toLowerCase().includes(query.toLowerCase()))
           return user;
       })
       .filter((user: any): user is any => user !== undefined);
@@ -14,6 +16,7 @@ export const filterUserData = (
 
   let filteredUsers: any[] = [];
 
+  //console.log(filter);
   switch (filter) {
     case "Name":
       filteredUsers = filterByProperty("username");

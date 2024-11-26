@@ -39,7 +39,9 @@ function People() {
     <Select
       defaultValue="Name"
       className="w-[115px] md:w-[140px] "
-      onChange={(e) => setFilter(e)}
+      onChange={(e) => {
+        setFilter(e);
+      }}
     >
       <Option value="Name">Name</Option>
       <Option value="Role">Role</Option>
